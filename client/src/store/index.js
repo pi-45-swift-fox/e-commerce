@@ -2,8 +2,12 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import { vm } from '@/main'
+import VueSweetalert2 from 'vue-sweetalert2'
+// If you don't need the styles, do not connect
+import 'sweetalert2/dist/sweetalert2.min.css'
 
 Vue.use(Vuex)
+Vue.use(VueSweetalert2)
 
 export default new Vuex.Store({
   state: {
@@ -11,10 +15,8 @@ export default new Vuex.Store({
     products: [],
     isLogin: false,
     carts: [],
-    cartSelected: {},
     total: 0,
-    banners: [],
-    willUpdate: []
+    banners: []
   },
   mutations: {
     FETCH_PRODUCTS (state, newProducts) {
@@ -29,17 +31,14 @@ export default new Vuex.Store({
     SET_TOTAL (state, subTotal) {
       state.total += subTotal
     },
-    REFRESH_TOTAL (state, value) {
-      state.total = value
+    PLUS_TOTAL (state, value) {
+      state.total += +value
     },
-    SET_CART (state, newCart) {
-      state.cartSelected = newCart
+    MINUS_TOTAL (state, value) {
+      state.total -= +value
     },
     SET_BANNERS (state, newBanners) {
       state.banners = newBanners
-    },
-    PUSH_WILLUPDATE (state, value) {
-      state.willUpdate.push(value)
     }
   },
   actions: {
@@ -55,17 +54,18 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    login ({ state, commit }, form) {
+    login ({ state, commit, dispatch }, form) {
       axios({
         method: 'POST',
         url: state.baseUrl + '/login',
         data: form
       })
-        .then((result) => {
-          localStorage.setItem('access_token', result.data.access_token)
+        .then(({ data }) => {
+          localStorage.setItem('access_token', data.access_token)
           commit('SET_ISLOGIN', true)
           vm.$router.push({ path: '/' })
-          console.log('berhasil', result.data)
+          dispatch('showAlertSuccess', `${data.email} succesfully logged in`)
+          console.log('berhasil', data.email)
         }).catch((err) => {
           console.log('error', err)
         })
@@ -83,7 +83,7 @@ export default new Vuex.Store({
           console.log('error', err)
         })
     },
-    addProductToCart ({ state, dispatch }, ProductId) {
+    addProductToCart ({ state, commit }, object) {
       axios({
         method: 'POST',
         url: state.baseUrl + '/carts',
@@ -91,13 +91,13 @@ export default new Vuex.Store({
           access_token: localStorage.access_token
         },
         data: {
-          ProductId,
+          ProductId: object.id,
           quantity: 1
         }
       })
         .then(({ data }) => {
+          commit('SET_TOTAL', +object.price)
           console.log(data)
-          dispatch('getCart', data.id)
         }).catch((err) => {
           console.log(err)
         })
@@ -132,10 +132,10 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    deleteCart ({ state, commit, dispatch }, id) {
+    deleteCart ({ state, commit, dispatch }, object) {
       axios({
         method: 'DELETE',
-        url: state.baseUrl + `/carts/${id}`,
+        url: state.baseUrl + `/carts/${object.id}`,
         headers: {
           access_token: localStorage.access_token
         }
@@ -144,8 +144,7 @@ export default new Vuex.Store({
           console.log('delete', data)
           vm.$router.push({ path: '/carts' })
           dispatch('getCarts')
-          commit('REFRESH_TOTAL', 0)
-          commit('SET_CART', {})
+          commit('MINUS_TOTAL', +object.price)
         }).catch((err) => {
           console.log(err)
         })
@@ -169,28 +168,27 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    willUpdatestatus ({ commit }, data) {
-      commit('PUSH_wILLUPDATE', data)
-    },
-    updateStatus ({ state, commit, dispatch }, id) {
-      axios({
-        method: 'PUT',
-        url: state.baseUrl + `/carts/${id}`,
-        headers: {
-          access_token: localStorage.access_token
-        },
-        data: {
-          status: 'paid'
-        }
-      })
-        .then(({ data }) => {
-          console.log('berhasil pay', data)
-          commit('SET_CART', {})
-          vm.$router.push({ path: '/' })
-          dispatch('getCarts')
-        }).catch((err) => {
-          console.log(err)
+    updateStatus ({ state, commit, dispatch }) {
+      state.carts.forEach(cart => {
+        axios({
+          method: 'PUT',
+          url: state.baseUrl + `/carts/${cart.id}`,
+          headers: {
+            access_token: localStorage.access_token
+          },
+          data: {
+            status: 'paid'
+          }
         })
+          .then(({ data }) => {
+            console.log('berhasil pay', data)
+            vm.$router.push({ path: '/' })
+            dispatch('getCarts')
+            commit('REFRESH_TOTAL')
+          }).catch((err) => {
+            console.log(err)
+          })
+      })
     },
     getBanners ({ state, commit }) {
       axios({
@@ -203,6 +201,20 @@ export default new Vuex.Store({
         }).catch((err) => {
           console.log(err)
         })
+    },
+    showAlertFail (message) {
+      this.$swal({
+        icon: 'error',
+        title: 'Oops...',
+        text: message
+      })
+    },
+    showAlertSuccess (message) {
+      this.$swal({
+        icon: 'success',
+        title: 'SUCCESS',
+        text: message
+      })
     }
   },
   modules: {

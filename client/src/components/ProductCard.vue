@@ -16,7 +16,7 @@
             </div>
         </b-card-text>
 
-        <b-button id="btn-outline" class="mb-2 icon" @click.prevent="addToCart(product.id)">
+        <b-button id="btn-outline" class="mb-2 icon" @click.prevent="addToCart(product.id, product.price)">
           <b-icon icon="cart-plus" aria-hidden="true"></b-icon> <span>Add To Cart</span>
         </b-button>
     </b-card>
@@ -35,8 +35,8 @@ export default {
     ...mapActions([
       'addProductToCart'
     ]),
-    addToCart (id) {
-      this.addProductToCart(id)
+    addToCart (id, price) {
+      this.addProductToCart({ id, price })
     }
   }
 }

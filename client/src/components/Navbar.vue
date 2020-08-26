@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'Navbar',
@@ -62,10 +62,14 @@ export default {
     ...mapMutations([
       'SET_ISLOGIN'
     ]),
+    ...mapActions([
+      'showAlertSuccess'
+    ]),
     signOut () {
       this.SET_ISLOGIN(false)
       localStorage.clear()
       this.backTohome()
+      this.showAlertSuccess('Successfully Logged out')
     }
   }
 }

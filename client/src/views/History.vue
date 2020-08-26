@@ -1,7 +1,7 @@
 <template>
-    <div>
-     <div class="container" v-for="cart in cartsPaid" :key="cart.id">
+    <div class="container">
       <h3 class="mt-5">Your history of product's shopped</h3>
+     <div v-for="cart in cartsPaid" :key="cart.id">
       <b-card :img-src="cart.Product.image_url" img-alt="Card image" img-left class="mb-3 mt-3">
         <b-card-text>
           <h5>{{ cart.Product.name }}</h5>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'History',
@@ -28,6 +28,14 @@ export default {
         return cart.status === 'paid'
       })
     }
+  },
+  methods: {
+    ...mapActions([
+      'getCarts'
+    ])
+  },
+  created () {
+    this.getCarts()
   }
 }
 </script>

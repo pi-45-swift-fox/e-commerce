@@ -27,7 +27,7 @@ class userController {
             const verified = bcrypt.compareSync(password, userLogin.password)
             if(verified){
                 const access_token = jwt.sign({email: userLogin.email}, process.env.JWT_SECRET)
-                res.status(200).json({access_token})
+                res.status(200).json({email: userLogin.email, access_token})
             } else {
                 next({name: 'Error Not Found',message: 'Email atau password salah'})
             }
