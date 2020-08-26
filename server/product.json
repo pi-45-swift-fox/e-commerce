@@ -1,0 +1,30 @@
+[
+    {
+        "name": "Acer Predator",
+        "image": "https://cdn.pcpartpicker.com/static/forever/images/product/0e0f10b8e1afa646409568b77c200b7f.256p.jpg",
+        "description": "Shop Gaming Products",
+        "stock": "15",
+        "pricer": "11000000"
+    },
+    {
+        "name": "Asus ROG",
+        "image": "https://pbs.twimg.com/profile_images/3260973686/f0adff4e79aa508497f5f7490b8278bd.jpeg",
+        "description": "Shop Gaming Products",
+        "stock": "20",
+        "pricer": "15000000"
+    },
+    {
+        "name": "Acer Predator",
+        "image": "https://cdn.pcpartpicker.com/static/forever/images/product/ce6a08c0d78c3f627c28b9c7321f43f1.256p.jpg",
+        "description": "Shop Gaming Products",
+        "stock": "10",
+        "pricer": "12000000"
+    },
+    {
+        "name": "Dell Allienware",
+        "image": "https://s3n.cashify.in/cashify/product/img/xhdpi/Alienware.jpeg",
+        "description": "Shop Gaming Products",
+        "stock": "25",
+        "pricer": "12000000"
+    }
+]
