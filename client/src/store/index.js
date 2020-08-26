@@ -11,7 +11,8 @@ Vue.use(VueSweetalert2)
 
 export default new Vuex.Store({
   state: {
-    baseUrl: 'http://localhost:3000',
+    // baseUrl: 'http://localhost:3000',
+    baseUrl: 'https://ecommerce-cms-izzul.herokuapp.com',
     products: [],
     isLogin: false,
     carts: [],
