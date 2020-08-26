@@ -32,6 +32,7 @@ export default {
   created () {
     this.$store.dispatch('getProducts')
     this.$store.dispatch('getBanners')
+    this.$store.dispatch('getCarts')
     if (localStorage.getItem('access_token')) {
       this.SET_ISLOGIN(true)
     } else {

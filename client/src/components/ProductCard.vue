@@ -1,5 +1,5 @@
 <template>
-  <div class="col-6 col-sm-4 col-md-3">
+  <div class="col-12 col-sm-6 col-md-3">
     <b-card
         :img-src="product.image_url"
         :img-alt="product.name"
@@ -12,7 +12,7 @@
             <h5>{{ product.name }}</h5>
             <div class="d-flex justify-content-between">
               <p style="color: rgb(139, 219, 206)" class="font-weight-bold">Rp. {{product.price.toLocaleString()}}</p>
-              <p>Stock : {{product.stock}}</p>
+              <p>{{product.stock}} pcs</p>
             </div>
         </b-card-text>
 

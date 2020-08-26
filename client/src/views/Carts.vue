@@ -20,7 +20,7 @@
         </tbody>
       </table>
       <div class="container d-flex justify-content-between">
-        <b-button class="mb-2" id="icon-pay" @click.prevent="willPay(cartSelected.id)">
+        <b-button class="mb-2" id="icon-pay" @click.prevent="willPay(cart)">
           <b-icon icon="credit-card" style="color: white;" aria-hidden="true"></b-icon> &nbsp; <span>Pay Now</span>
         </b-button>
         <h5 class="font-weight-bold">
@@ -56,13 +56,13 @@ export default {
   methods: {
     ...mapActions([
       'getCarts',
-      'updateStatus'
+      'willUpdatestatus'
     ]),
     setTotal (total) {
       this.total = total
     },
-    willPay (id) {
-      this.updateStatus(id)
+    willPay (data) {
+      this.willupdateStatus(data)
     }
   },
   created () {

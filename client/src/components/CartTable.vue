@@ -40,7 +40,8 @@ export default {
     ]),
     ...mapActions([
       'deleteCart',
-      'updateQuantity'
+      'updateQuantity',
+      'getCarts'
     ]),
     willDelete (id) {
       this.deleteCart(id)
@@ -50,15 +51,18 @@ export default {
         id,
         quantity: +currentQuantity - 1
       })
+      this.getCarts()
     },
     willPlus (id, currentQuantity) {
       this.updateQuantity({
         id,
         quantity: +currentQuantity + 1
       })
+      this.getCarts()
     }
   },
-  mounted () {
+  created () {
+    this.getCarts()
     this.SET_TOTAL(this.subtotal)
   }
 }

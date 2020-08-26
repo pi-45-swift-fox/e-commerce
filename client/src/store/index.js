@@ -13,7 +13,8 @@ export default new Vuex.Store({
     carts: [],
     cartSelected: {},
     total: 0,
-    banners: []
+    banners: [],
+    willUpdate: []
   },
   mutations: {
     FETCH_PRODUCTS (state, newProducts) {
@@ -28,11 +29,17 @@ export default new Vuex.Store({
     SET_TOTAL (state, subTotal) {
       state.total += subTotal
     },
+    REFRESH_TOTAL (state, value) {
+      state.total = value
+    },
     SET_CART (state, newCart) {
       state.cartSelected = newCart
     },
     SET_BANNERS (state, newBanners) {
       state.banners = newBanners
+    },
+    PUSH_WILLUPDATE (state, value) {
+      state.willUpdate.push(value)
     }
   },
   actions: {
@@ -125,7 +132,7 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    deleteCart ({ state, dispatch }, id) {
+    deleteCart ({ state, commit, dispatch }, id) {
       axios({
         method: 'DELETE',
         url: state.baseUrl + `/carts/${id}`,
@@ -137,6 +144,8 @@ export default new Vuex.Store({
           console.log('delete', data)
           vm.$router.push({ path: '/carts' })
           dispatch('getCarts')
+          commit('REFRESH_TOTAL', 0)
+          commit('SET_CART', {})
         }).catch((err) => {
           console.log(err)
         })
@@ -160,6 +169,9 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
+    willUpdatestatus ({ commit }, data) {
+      commit('PUSH_wILLUPDATE', data)
+    },
     updateStatus ({ state, commit, dispatch }, id) {
       axios({
         method: 'PUT',
@@ -174,7 +186,7 @@ export default new Vuex.Store({
         .then(({ data }) => {
           console.log('berhasil pay', data)
           commit('SET_CART', {})
-          vm.$router.push({ path: '/carts' })
+          vm.$router.push({ path: '/' })
           dispatch('getCarts')
         }).catch((err) => {
           console.log(err)
