@@ -4,12 +4,11 @@
       <h3 v-if="cartsUnpaid.length < 1" class="mt-5">No Products added to your cart</h3>
       <div v-else>
       <h4 class="mt-3 font-weight-bold">Your Products in Cart</h4>
-            <table class="table table-hover rounded">
+        <table class="table table-hover rounded">
         <thead style="background-color: #a3d2ca;" class="text-black-50">
           <tr>
-            <th scope="col">No</th>
-            <th scope="col">Name</th>
             <th scope="col">Image</th>
+            <th scope="col">Name</th>
             <th scope="col">Price</th>
             <th scope="col">Quantity</th>
             <th scope="col">SubTotal</th>
@@ -17,7 +16,7 @@
           </tr>
         </thead>
         <tbody>
-          <CartTable v-for="(cart, index) in cartsUnpaid" :key="cart.id" :cart="cart" :index="index" ></CartTable>
+          <CartTable v-for="cart in cartsUnpaid" :key="cart.id" :cart="cart" ></CartTable>
         </tbody>
       </table>
       <div class="container d-flex justify-content-between">

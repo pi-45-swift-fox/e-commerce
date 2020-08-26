@@ -10,11 +10,15 @@
     >
         <b-card-text >
             <h5>{{ product.name }}</h5>
-            <p style="color: #5eaaa8" class="font-weight-bold">Rp. {{product.price.toLocaleString()}}</p>
-            <p>Stock : {{product.stock}}</p>
+            <div class="d-flex justify-content-between">
+              <p style="color: rgb(139, 219, 206)" class="font-weight-bold">Rp. {{product.price.toLocaleString()}}</p>
+              <p>Stock : {{product.stock}}</p>
+            </div>
         </b-card-text>
 
-        <b-button href="#" id="btn-outline" @click.prevent="addToCart(product.id)">Add To Cart</b-button>
+        <b-button id="btn-outline" class="mb-2 icon" @click.prevent="addToCart(product.id)">
+          <b-icon icon="cart-plus" aria-hidden="true"></b-icon> <span>Add To Cart</span>
+        </b-button>
     </b-card>
   </div>
 </template>
@@ -65,4 +69,11 @@ export default {
   color: white;
 }
 
+#icon-product:hover {
+  color: white;
+}
+
+#span-product:hover {
+  color: white;
+}
 </style>

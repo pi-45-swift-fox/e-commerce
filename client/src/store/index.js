@@ -12,7 +12,8 @@ export default new Vuex.Store({
     isLogin: false,
     carts: [],
     cartSelected: {},
-    total: 0
+    total: 0,
+    banners: []
   },
   mutations: {
     FETCH_PRODUCTS (state, newProducts) {
@@ -29,6 +30,9 @@ export default new Vuex.Store({
     },
     SET_CART (state, newCart) {
       state.cartSelected = newCart
+    },
+    SET_BANNERS (state, newBanners) {
+      state.banners = newBanners
     }
   },
   actions: {
@@ -172,6 +176,18 @@ export default new Vuex.Store({
           commit('SET_CART', {})
           vm.$router.push({ path: '/carts' })
           dispatch('getCarts')
+        }).catch((err) => {
+          console.log(err)
+        })
+    },
+    getBanners ({ state, commit }) {
+      axios({
+        method: 'GET',
+        url: state.baseUrl + '/banners'
+      })
+        .then(({ data }) => {
+          commit('SET_BANNERS', data)
+          console.log('berhasil get carts', data)
         }).catch((err) => {
           console.log(err)
         })

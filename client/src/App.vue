@@ -31,6 +31,7 @@ export default {
   },
   created () {
     this.$store.dispatch('getProducts')
+    this.$store.dispatch('getBanners')
     if (localStorage.getItem('access_token')) {
       this.SET_ISLOGIN(true)
     } else {

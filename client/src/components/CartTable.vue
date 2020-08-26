@@ -1,8 +1,7 @@
 <template>
     <tr>
-        <th scope="row">{{ index + 1 }}</th>
-        <td>{{ cart.Product.name }}</td>
-        <td><img id="img-cart" :src="cart.Product.image_url" :alt="cart.Product.name+ 'image'"></td>
+        <td style="width: 30vw"><img id="img-cart" :src="cart.Product.image_url" :alt="cart.Product.name+ 'image'"></td>
+        <th scope="row">{{ cart.Product.name }}</th>
         <td>Rp. {{ cart.Product.price.toLocaleString() }}</td>
         <td>
             <b-button class="mb-2 icon-cart" variant="outline-white" scale="1.1" @click.prevent="willMinus(cart.id, cart.quantity)">
@@ -67,7 +66,7 @@ export default {
 
 <style scooped>
 #img-cart{
-  width: 30%;
+  width: 70%;
   height: 30vh;
   object-fit: cover;
 }
