@@ -10,7 +10,7 @@ class Authenticate{
             }
             const check = JWT.verifyToken(req.headers.access_token)
             if(check){
-                req.userLogin = {id:check.id, email:check.email}
+                req.userLogin = {id:check.id, email:check.email, role:check.role}
                 next()
             }
 
@@ -29,6 +29,7 @@ class Authorize{
         }
     }
     static AuthorizeUser(req, res,next){
+        console.log(req.userLogin)
         if(req.userLogin.role == 'user'){
             next()
         }else{

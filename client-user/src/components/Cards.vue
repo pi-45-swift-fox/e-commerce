@@ -1,28 +1,37 @@
 <template>
-    <div class="col-md-3 col-sm-6 my-5">
-      <b-card :img-src="product.image_url">
-          <p class="card-title"><span>
-            {{product.name}}
-            </span>
-            </p>
-        <b-card-text>
-          Price: <br>
-          Rp.{{product.price.toLocaleString()}}
-        </b-card-text>
-        <br>
-        STOCK : {{product.stock}}
-        <br>
-        <br>
-        <div class="row mx-auto justify-content-around">
-          <b-button @click.prevent='addToCart' variant="outline-success" size="md" class="rounded-pill">Add to cart</b-button>
+<div class="col-md-3 col-sm-6 mx-3 my-5" id="CARDS">
+    <b-card :img-src="product.image_url" >
+      <p class="card-title"><span>
+          {{product.name}}
+        </span>
+      </p>
+      <div class="row">
+        <div class="col">
+          <b-card-text>
+            Price: <br>
+            Rp.{{product.price.toLocaleString()}}
+          </b-card-text>
         </div>
-      </b-card>
-      <div>
+        <div class="col">
+          STOCK :
+          <br>{{product.stock}}
+        </div>
       </div>
-    </div>
+      <br>
+      <br>
+      <div class="row mx-auto justify-content-around">
+        <b-button @click.prevent='addToCart(product.id)' variant="outline-success" size="md" class=" rounded-pill">
+        <b-icon icon="cart-plus"></b-icon>Add to cart
+        </b-button>
+      </div>
+    </b-card>
+    <div>
+</div>
+  </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Cards',
@@ -33,16 +42,16 @@ export default {
     }
   },
   methods: {
-    addToCart () {
-      this.$store.state.cart.push(this.product)
-    }
+    ...mapActions([
+      'addToCart'
+    ])
   }
 }
 </script>
 
 <style scoped>
 img{
-  height: 200px;
+  height: 300px;
   object-fit: cover;
 }
 .card-title{
@@ -62,6 +71,13 @@ img{
   box-shadow: 0 0 4px 0 black;
   border-radius: 2px;
   z-index: 10;
+}
+#CARDS{
+  padding: 0px;
+  margin: 10px;
+}
+#CARDS:hover{
+   box-shadow: 2s 0px 0px 33px -8px rgba(0,0,0,0.79);
 }
 
 </style>

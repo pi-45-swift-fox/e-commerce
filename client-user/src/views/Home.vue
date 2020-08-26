@@ -7,7 +7,7 @@
 
     <!-- banner -->
     <div class="container-fluid">
-      <div class="row">
+      <div class="row d-flex justify-content-around ">
         <Cards v-for="product in $store.state.products" :key="product.id" :product="product" />
       </div>
     </div>

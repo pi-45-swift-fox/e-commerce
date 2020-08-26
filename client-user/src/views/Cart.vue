@@ -5,7 +5,7 @@
     <!-- navbar -->
     <div class="container-fluid">
       <div class="col">
-        <CartsCards v-for="product in $store.state.cart" :key="product.id" :product="product" />
+        <CartsCards v-for="cart in $store.state.carts" :key="cart.id" :cart="cart" />
       </div>
     </div>
   </div>
@@ -17,7 +17,7 @@ import router from '../router'
 import CartsCards from '../components/CartsCards'
 import Navbar from '../components/Navbar'
 export default {
-  name: 'Cart',
+  name: 'Carts',
   data () {
     return {
       isLogin: false
@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchProducts'
+      'fetchCarts'
     ]),
     registerForm () {
       router.push('register')
@@ -43,12 +43,12 @@ export default {
     }
   },
   created () {
-    this.fetchProducts()
-  },
-  mounted () {
     if (localStorage.token) {
       this.isLogin = true
     }
+  },
+  mounted () {
+    this.fetchCarts()
   }
 }
 

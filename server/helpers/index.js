@@ -16,8 +16,8 @@ class Bcrypt{
 class JWT{
 
     static generateToken(user){
-        return jwt.sign({id: user.id, email: user.email}, process.env.SECRET) 
-
+        return jwt.sign({id: user.id, email: user.email, role: user.role}, process.env.SECRET) 
+        
     }
 
     static verifyToken(token){

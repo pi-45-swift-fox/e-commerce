@@ -1,7 +1,7 @@
 function errorHandler(err, req, res, next){
+    console.log(err)
     let statusCode = 500
     let Message = ['Internal Server Error']
-    console.log(err)
     let array = []
     
     if(err.errorCode == 'INVALID_USER' || err.name == 'JsonWebTokenError' || err.errorCode == 'INVALID_TOKEN'){

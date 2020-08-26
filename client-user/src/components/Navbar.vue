@@ -2,7 +2,7 @@
 <div>
   <div class="navigation">
     <div class="d-flex justify-content-between mx-3" >
-      <div class="p-2 mx-3 my-3 ">logo</div>
+      <div class="mt-2"><img src="https://www.pngmart.com/files/11/Technology-PNG-Free-Download.png" alt=""></div>
       <div class="mx-3 mt-4">
         <p class="text-center text-uppercase mt-1">
           Welcome to the tech world
@@ -11,7 +11,7 @@
       <div>
         <div class="d-flex flex-row bd-highlight">
           <div v-if="!isLogin" class="p-2 bd-highlight">
-            <button @click.prevent="showCart" class="bg-transparent border-0">
+            <button @click.prevent="showCart" class="bg-transparent border-0 showCart">
             <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_xYvGhX.json" mode="bounce"
               background="transparent" speed="0.5" style="width: 75px; height: 75px;" hover loop autoplay>
             </lottie-player>
@@ -33,7 +33,6 @@
 
 <script>
 import router from '../router'
-import { mapState } from 'vuex'
 
 export default {
   name: 'Navbar',
@@ -63,16 +62,20 @@ export default {
     } else {
       router.push('/Login')
     }
-  },
-  computed: mapState({
-    isLogin: false
-  })
+  }
 }
 </script>
 
 <style scoped>
-.navivation{
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+.navigation{
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-bottom: 10px solid black;
+  margin-bottom: 5vh;
+}
+
+img {
+  width: 100px;
+  height: auto;
 }
 </style>
