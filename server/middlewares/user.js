@@ -38,14 +38,16 @@ module.exports = class Check {
     }
 
     static async authorize_cart_owner(req, res, next) {
-        const cart = await Cart.findOne({
+        const response = await Cart.findOne({
             where: {
                 id: req.params.id
             },
             attributes: ['UserId']
         });
 
-        if (cart) {
+        if (response) {
+            const cart = response.dataValues;
+            console.log(req.userLogin)
             if (req.userLogin.id === cart.UserId) {
                 next();
             } else {

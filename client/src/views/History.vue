@@ -3,22 +3,19 @@
     <div class="col-8 mx-auto">
   <table class="table table-sm table-bordered table-hover">
       <caption>
-          <button class="btn btn-success" v-if="$store.state.cart[0]" @click="buy">
-              Buy
-          </button>
+          Your History Table
       </caption>
   <thead>
     <tr>
       <th scope="col">Image</th>
       <th scope="col">Name</th>
       <th scope="col">Price</th>
-      <th scope="col">Available</th>
       <th scope="col">Quantity</th>
-      <th scope="col">Actions</th>
+      <th scope="col">Total</th>
     </tr>
   </thead>
   <tbody>
-    <ProductRow v-for="cart in $store.state.cart" :key="cart.id" :cart="cart" />
+    <ProductRow v-for="cart in $store.state.history" :key="cart.id" :cart="cart" />
   </tbody>
 </table>
     </div>
@@ -26,19 +23,14 @@
 </template>
 
 <script>
-import ProductRow from '../components/ProductRow.vue';
+import ProductRow from '../components/HistoryProductRow.vue';
 
 export default {
     components: {
         ProductRow
     },
     async created() {
-        await this.$store.dispatch('fetch_my_cart');
-    },
-    methods: {
-        async buy() {
-            await this.$store.dispatch('buy_cart');
-        }
+        await this.$store.dispatch('fetch_my_history');
     }
 }
 </script>

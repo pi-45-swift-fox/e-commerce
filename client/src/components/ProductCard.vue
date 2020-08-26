@@ -12,7 +12,7 @@
         <p class="card-text text-muted">Stock: {{product.stock}} </p>
       </div>
       <div class="card-footer">
-        <button class="btn btn-success">+ Cart</button>
+        <button class="btn btn-success" @click="add_to_cart">+ Cart</button>
       </div>
     </div>
   </div>
@@ -22,6 +22,11 @@
 export default {
     props: {
         product: Object
+    },
+    methods: {
+        async add_to_cart() {
+            await this.$store.dispatch('add_to_cart', this.product.id)
+        }
     }
 };
 </script>

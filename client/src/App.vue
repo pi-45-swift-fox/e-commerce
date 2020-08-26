@@ -2,7 +2,9 @@
   <div id="app">
     <div id="nav" class="navbar navbar-light">
       <router-link to="/" class="navbar-brand">TokoBrand</router-link>
-      <span v-if="$store.state.login">
+      <span class="inline" v-if="$store.state.login">
+        <router-link to="/cart" class="btn btn-link mr-3">Cart</router-link>
+        <router-link to="/history" class="btn btn-link mr-3">Transactions</router-link>
         <router-link to="/logout" class="text-secondary">Logout</router-link>
       </span>
       <span v-else>

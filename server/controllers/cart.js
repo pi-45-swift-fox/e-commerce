@@ -5,7 +5,8 @@ module.exports = class CartController {
         try {
             const cart = await Cart.findAll({
                 where: {
-                    UserId: req.userLogin.id
+                    UserId: req.userLogin.id,
+                    status: 'in-cart'
                 },
                 attributes: [
                     'id', 'UserId', 'ProductId', 'status', 'quantity'
@@ -22,10 +23,32 @@ module.exports = class CartController {
         }
     }
 
+    static async list_history(req, res, next) {
+        try {
+            const cart = await Cart.findAll({
+                where: {
+                    UserId: req.userLogin.id,
+                    status: 'complete'
+                },
+                attributes: [
+                    'id', 'UserId', 'ProductId', 'status', 'quantity', 'updatedAt'
+                ],
+                include: [Product]
+            });
+
+            res.status(200).json(cart);
+        } catch (error) {
+            next({
+                code: 500,
+                body: error
+            });
+        }
+    }
+
     static async add(req, res, next) {
         const input = {
             UserId: req.userLogin.id,
-            ProductId: req.body.product_id || req.body.productId,
+            ProductId: req.params.productId,
             quantity: req.body.quantity,
             status: 'in-cart'
         };
@@ -38,25 +61,37 @@ module.exports = class CartController {
             });
 
             if (product) {
-                const cart = await Cart.findOne({
+                const response = await Cart.findOne({
                     where: {
-                        ProductId: input.ProductId
+                        UserId: input.UserId,
+                        ProductId: input.ProductId,
+                        status: 'in-cart'
                     },
                     attributes: [
-                        'id'
+                        'id', 'quantity'
                     ]
                 });
 
-                if (cart) {
-                    if (product.stock >= input.quantity) {
-                        input.quantity++;
-                        await Cart.update(input, {
-                            where: {
-                                id: cart.id
-                            }
-                        });
+                if (response) {
+                    const cart = response.dataValues;
 
-                        res.status(201).json({ msg: 'OK' });
+                    if (product.stock >= cart.quantity) {
+                        if (!(product.stock === cart.quantity)) {
+                            cart.quantity++;
+
+                            await Cart.update(cart, {
+                                where: {
+                                    id: cart.id
+                                }
+                            });
+
+                            res.status(201).json({ msg: 'OK' });
+                        } else {
+                            next({
+                                code: 400,
+                                type: 'cart'
+                            });
+                        }
                     } else {
                         next({
                             code: 400,
@@ -140,7 +175,7 @@ module.exports = class CartController {
                 }
             });
 
-            res.send(200).json({ msg: 'OK' });
+            res.status(200).json({ msg: 'OK' });
         } catch (error) {
             next({
                 code: 500,
@@ -153,7 +188,8 @@ module.exports = class CartController {
         try {
             const cart = await Cart.findAll({
                 where: {
-                    UserId: req.userLogin.id
+                    UserId: req.userLogin.id,
+                    status: 'in-cart'
                 },
                 attributes: [
                     'id', 'UserId', 'ProductId', 'status', 'quantity'
@@ -162,13 +198,15 @@ module.exports = class CartController {
             });
 
             cart.forEach(element => {
-                if (!element.Product.stock >= element.quantity) {
+                if (element.Product.stock <= element.quantity) {
                     throw { this: true, code: 400, type: 'cart' };
                 }
             });
 
+            console.log('jalan')
             cart.forEach(async element => {
                 const product = element.Product;
+
 
                 await Product.update({ stock: (product.stock -= element.quantity) }, {
                     where: {

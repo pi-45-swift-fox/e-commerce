@@ -175,7 +175,7 @@ Membuat platform untuk e-commerce
     "msg": "Internal server error"
 >
 
-### POST `/cart`
+### POST `/cart/id`
 ##### Menambahkan cart baru ke database
 
 #### Request Headers
@@ -185,7 +185,6 @@ Membuat platform untuk e-commerce
 
 #### Request Body
 >
-    "ProductId": "Product ID yang dibeli",
     "quantity": "Banyak Product yang ingin dibeli",
 >
 
