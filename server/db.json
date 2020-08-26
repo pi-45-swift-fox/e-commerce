@@ -1,0 +1,62 @@
+[
+    {
+        "name" : "Burger",
+        "price" : 10000,
+        "image_url" : "https://img5.goodfon.com/wallpaper/nbig/1/3e/gamburger-burger-mcdonald-s-perets.jpg",
+        "stock" : 5
+    },
+    {
+        "name" : "LaFerrari Aperta",
+        "price" : 450000000,
+        "image_url" : "https://robbreportedit.files.wordpress.com/2020/03/2017-ferrari-laferrari-aperta_ryan-merrill-2020-courtesy-of-rm-sothebys-2-1.jpg",
+        "stock" : 10
+    },
+    {
+        "name" : "Ryzen 3950X",
+        "price" : 1300000,
+        "image_url" : "https://pcper.com/wp-content/uploads/2020/01/amd-ryzen-9-3950x-featured.jpg",
+        "stock" : 200000
+    },
+    {
+        "name" : "Intel",
+        "price" : 1500000,
+        "image_url" : "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/Intel_9th_Gen_Core_2_e1539955555739.jpg",
+        "stock" : 100000
+    },
+    {
+        "name" : "Sandwich",
+        "price" : 25000,
+        "image_url" : "https://realfood.tesco.com/media/images/RFO-1400x919-ChickenClubSandwich-0ee77c05-5a77-49ac-a3bd-4d45e3b4dca7-0-1400x919.jpg",
+        "stock" : 900000
+    },
+    {
+        "name" : "Gucci Bag",
+        "price" : 220000,
+        "image_url" : "https://media.gucci.com/style/DarkGray_Center_0_0_490x490/1515492904/443497_DTDIT_1000_001_063_0000_Light.jpg",
+        "stock" : 1000
+    },
+    {
+        "name" : "Graff Diamonds Hallucination Watch",
+        "price" : 55000000,
+        "image_url" : "https://www.cheatsheet.com/wp-content/uploads/2019/03/Graff-Diamonds-Hallucination-watch-e1551897887743.jpg",
+        "stock" : 100
+    },
+    {
+        "name" : "Nesmuk Diamond Knife",
+        "price" : 396000,
+        "image_url" : "https://coolmaterial.com/wp-content/uploads/2009/03/diamond-knife.jpg",
+        "stock" : 10000
+    },
+    {
+        "name" : "Leather Gold & Silver Monopoly Set",
+        "price" : 7570000,
+        "image_url" : "https://coolmaterial.com/wp-content/uploads/2009/03/rich-monopoly1.jpg",
+        "stock" : 500
+    },
+    {
+        "name" : "Magnetic floating bed",
+        "price" : 160000,
+        "image_url" : "http://moneyinc.com/wp-content/uploads/2019/04/This-Millionaire%E2%80%99s-Magnetic-Floating-Bed-750x338.jpg",
+        "stock" : 1000
+    }
+]
