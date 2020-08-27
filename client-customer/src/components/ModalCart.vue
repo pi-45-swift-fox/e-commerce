@@ -33,8 +33,8 @@
       <p class="text-center m-auto">Action</p>
     </div>
   </li>
-  <ModalCartItem />
-          <!-- <ModalCartItem v-for="{cart,i} in $store.state.carts" :key="i" :cart="cart" /> -->
+  <!-- <ModalCartItem /> -->
+          <ModalCartItem v-for="{cart,i} in $store.state.carts" :key="i" :cart="cart" />
           </ul>
         </div>
         <div class="modal-footer">

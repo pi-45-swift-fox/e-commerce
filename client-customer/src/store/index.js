@@ -27,6 +27,9 @@ export default new Vuex.Store({
       state.isLogin = false
       localStorage.clear()
       state.user = ''
+    },
+    set_cart(state,data){
+      state.carts = data
     }
   },
   actions: {
@@ -56,7 +59,7 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-    login({ commit }, payload) {
+    login({ commit,dispatch }, payload) {
       fetch(`${baseUrl}/login`, {
         method: "POST",
         headers: {
@@ -70,6 +73,7 @@ export default new Vuex.Store({
           localStorage.setItem('access_token',data.access_token)
           localStorage.setItem('user',data.email)
           commit('set_login')
+          dispatch('fetchCart')
         })
         .catch((error) => { console.error('Error:', error); })
     },
@@ -86,7 +90,74 @@ export default new Vuex.Store({
           console.log(data)
         })
         .catch((error) => { console.error('Error:', error); })
+    },
+    fetchCart({commit},data){
+      const access_token = localStorage.getItem('access_token')
+      fetch(`${baseUrl}/carts`,{
+        method:"GET",
+        headers:{
+          'Content-Type': 'application/json',
+          'access_token': access_token
+        }
+      })
+      .then(function (res) { return res.json(); })
+        .then(function (data) {
+          console.log(data)
+          commit('set_cart',data)
+        })
+        .catch((error) => { console.error('Error:', error); })
+    },
+    deleteCart({commit,dispatch},data){
+      const access_token = localStorage.getItem('access_token')
+      fetch(`${baseUrl}/carts/${data}`,{
+        method:"DELETE",
+        headers:{
+          'Content-Type': 'application/json',
+          'access_token': access_token
+        }
+      })
+      .then(function (res) { return res.json(); })
+        .then(function (data) {
+          console.log(data)
+          dispatch('fetchCart')
+        })
+        .catch((error) => { console.error('Error:', error); })
+    },
+    createCart({commit,dispatch},payload){
+      const access_token = localStorage.getItem('access_token')
+      fetch(`${baseUrl}/carts`, {
+        method: "POST",
+        headers:{
+          'Content-Type': 'application/json',
+          'access_token': access_token
+        },
+        body: JSON.stringify(payload)
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          console.log(data)
+          dispatch('fetchCart')
+        })
+        .catch((error) => { console.error('Error:', error); })
+    },
+    editCart({commit,dispatch},payload){
+      const access_token = localStorage.getItem('access_token')
+      fetch(`${baseUrl}/carts/${payload.id}`, {
+        method: "PUT",
+        headers:{
+          'Content-Type': 'application/json',
+          'access_token': access_token
+        },
+        body: JSON.stringify(payload)
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          console.log(data)
+          dispatch('fetchCart')
+        })
+        .catch((error) => { console.error('Error:', error); })
     }
+
   },
   modules: {
   }

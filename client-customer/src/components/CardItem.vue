@@ -37,8 +37,16 @@ export default {
         return false
       }
     }
-  }
-  
+  },
+  methods:{
+    addCart(){
+      const data = {
+        ProductId : this.item.ProductId,
+        quantity : 1,
+      }
+      this.$store.dispatch('createCart',data)
+    }
+  }  
 }
 </script>
 

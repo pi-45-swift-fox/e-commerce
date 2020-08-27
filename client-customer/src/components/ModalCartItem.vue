@@ -1,16 +1,16 @@
 <template>
   <li class="list-group-item list-group-item-action d-flex row bg-light">
     <div class="col-4">
-      <p class="text-center m-auto">Nama</p>
+      <p class="text-center m-auto">{{cart.name}}</p>
     </div>
     <div class="col-2">
-      <p class="text-center m-auto">Harga</p>
+      <p class="text-center m-auto">{{cart.price}}</p>
     </div>
     <div class="col-2">
-      <p class="text-center m-auto">1</p>
+      <p class="text-center m-auto">{{cart.quantity}}</p>
     </div>
     <div class="col-2">
-      <p class="text-center m-auto">Total</p>
+      <p class="text-center m-auto">{{total}}</p>
     </div>
     <div class="col-2">
       <button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="bottom" title="PLUS!">
@@ -30,6 +30,27 @@
 export default {
   name: "ModalCartItem",
   props: ["cart"],
+  computed:{
+    total(){
+      const total = this.cart.quantity*this.cart.price
+      this.$emit('totalPeritem',this.cart.quantity*this.cart.price)
+      return total
+    }
+  },
+  methods:{
+    changeCart(plusMinus){
+      const valuez = this.cart.quantity + plusMinus
+      const data = {
+        id:this.cart.id,
+        status:this.cart.status,
+        quantity:valuez
+      }
+      this.$store.dispatch('editCart',data)
+    },
+    delCart(){
+      this.$store.dispatch('deleteCart',this.cart.id)
+    }
+  }
 };
 </script>
 
