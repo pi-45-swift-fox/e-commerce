@@ -54,8 +54,19 @@ _Response (200)_
     "image_url": "<show image_url data>",
     "price": "<show price data>",
     "stock": "<show stock data>",
+    "category": "<show category data>",
+    "BannerId": "<show BannerId data>",
     "createdAt": "<show createdAt data>",
     "updatedAt": "<show updatedAt data>",
+    "Banner": [
+      "id": <show id data>,
+      "name": "<show name data>",
+      "description": "<show description data>",
+      "image_url": "<show image_url data>",
+      "status": "<show status data>",
+      "createdAt": "<show createdAt data>",
+      "updatedAt": "<show updatedAt data>",
+    ]
   }
 ]
 ```
@@ -239,6 +250,55 @@ _Response (200)_
     "createdAt": "<contain createdAt that deleted>",
     "updatedAt": "<contain updatedAt that deleted>",
 }
+```
+
+_Response (404 - Not Found)_
+```
+{
+  "message": "data not found"
+}
+```
+
+---
+### GET /banners
+> Get all banners
+
+_Request Header_
+```
+{
+  "access_token": "<access_token>"
+}
+```
+
+_Request Body_
+```
+not needed
+```
+
+_Response (200)_
+```
+[
+  {
+    "id": <show id data>,
+    "name": "<show name data>",
+    "description": "<show description data>",
+    "image_url": "<show image_url data>",
+    "status": "<show status data>",
+    "createdAt": "<show createdAt data>",
+    "updatedAt": "<show updatedAt data>",
+    "Products": [
+        "id": <show id data>,
+        "name": "<show name data>",
+        "image_url": "<show image_url data>",
+        "price": "<show price data>",
+        "stock": "<show stock data>",
+        "category": "<show category data>",
+        "BannerId": "<show BannerId data>",
+        "createdAt": "<show createdAt data>",
+        "updatedAt": "<show updatedAt data>",
+    ]
+  }
+]
 ```
 
 _Response (404 - Not Found)_
