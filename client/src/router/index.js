@@ -51,10 +51,11 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name !== 'Login' && from.name === 'Home' && !localStorage.getItem('token')) {
-    router.push('/')
-  }
-  if (to.name === 'Register' && from.name === 'Home' && !localStorage.getItem('token')) {
+  if (to.name === 'Login' && from.name === 'Home' && !localStorage.getItem('token')) {
+    next()
+  } else if (to.name === 'Register' && from.name === 'Home' && !localStorage.getItem('token')) {
+    next()
+  } else if (to.name === 'Home' && from.name === 'Home' && !localStorage.getItem('token')) {
     next()
   } else {
     next()
