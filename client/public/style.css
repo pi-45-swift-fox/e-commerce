@@ -1,0 +1,180 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Coda', cursive;
+}
+
+nav {
+    background:rgb(42, 39, 81);
+    color: white;
+}
+
+#loginPage, #registerPage {
+    display: flex;
+    justify-content: center;
+    margin: 30px;
+}
+
+#loginForm h4 {
+    text-align: center;
+    font-weight: bold;
+}
+
+#registerForm h4 {
+    text-align: center;
+    font-weight: bold;
+}
+
+#loginForm, #registerForm {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 30%;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+#loginForm i {
+    font-size: 35px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+#registerForm i {
+    font-size: 35px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#logo {
+    font-size: 24px;
+    text-decoration: none;
+    color: white;
+}
+
+#logo:hover {
+    color: #a8cc3b;
+}
+
+#cart {
+    font-size: 22px;
+    color: white;
+}
+
+.boxSection {
+    border: 1px rgb(214, 206, 206) solid;
+    margin: 50px;
+    border-radius: 20px;
+}
+
+.contentCategory {
+    background: rgb(63, 59, 117);
+    color: white;
+    border-radius: 10px;
+    width: 300px;
+    height: 70px;
+    font-size: 17px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.contentCategory:hover {
+    color: white;
+    font-size: 20px;
+    box-shadow: 0 14px 22px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btnBuy, .btnCheckOut {
+    border: solid 2px #000000;
+    text-align: center;
+    color: #16162b;
+    background: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    font-family: 'Bungee', cursive;;
+}
+
+.detailProduct {
+    text-decoration: none;
+    color: black;
+}
+
+.detailProduct span:hover {
+    text-decoration: underline;
+    color: black;
+}
+
+.btnBuy:hover, .btnCheckOut:hover {
+    background:#262759;
+    color: white;
+}
+
+.btnCheckOut {
+    width: 50%;
+    align-self: center;
+    margin-top: 30px;
+    height: 50px;
+    font-size: 20px;
+}
+
+#cart:hover {
+    font-size: 24px;
+}
+
+#loginSmall, #registerSmall {
+    color: #3a7979; 
+    text-decoration: none;
+}
+
+#loginSmall:hover {
+    font-weight: bold;
+}
+
+#registerSmall:hover {
+    font-weight: bold;
+}
+/* Dropdown Button */
+.dropbtn {
+    background: #2B303A;
+    color: white;
+    font-size: 16px;
+    border: none;
+  }
+  
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+position: relative;
+display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+display: none;
+position: absolute;
+background-color: white;
+min-width: 140px;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+z-index: 1;
+font-size: 14px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+color: black;
+padding: 5px;
+text-decoration: none;
+display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {font-weight: bold;}
