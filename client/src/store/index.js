@@ -81,6 +81,22 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
+    register (context, info) {
+      axios({
+        url: 'http://localhost:3000/register',
+        method: 'POST',
+        data: {
+          email: info.email,
+          password: info.password
+        }
+      })
+        .then(data => {
+          router.push('/')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     logout (context, info) {
       context.commit('LOGOUT', {})
     },

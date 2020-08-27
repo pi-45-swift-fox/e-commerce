@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h2>Login</h2>
+      <h2>Register</h2>
       <div>
     <b-form @submit.prevent="onSubmit" @reset.prevent="onReset">
       <b-form-group
