@@ -11,6 +11,9 @@
             <div v-html="minusIcon" id="icon" @click.prevent="minus(cart.id, cart.quantity, cart.Product.id)">  </div>
         </div>
       </td>
+      <td>
+        <button class="btn btn-danger" @click.prevent="deleteItem">Delete</button>
+      </td>
   </tr>
 </template>
 
@@ -78,6 +81,23 @@ export default {
       })
         .then(data => {
           this.$store.dispatch('fetchCarts')
+        })
+        .catch(({ response }) => {
+          console.log(response)
+        })
+    },
+    deleteItem () {
+      const id = this.cart.id
+      axios({
+        url: `${this.baseUrl}/carts/${id}`,
+        headers: {
+          access_token: localStorage.access_token
+        },
+        method: 'DELETE'
+      })
+        .then(data => {
+          this.$store.dispatch('fetchCarts')
+          swal('Success!', 'Deleted from your cart!', 'success')
         })
         .catch(({ response }) => {
           console.log(response)

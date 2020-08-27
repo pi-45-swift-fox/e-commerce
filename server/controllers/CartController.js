@@ -1,6 +1,7 @@
 const { Cart, User, Product } = require('../models');
 class CartController {
     static async getCart(req,res,next) {
+        console.log('getCart');
         try{
             const carts = await Cart.findAll({
                 where: {
@@ -29,13 +30,15 @@ class CartController {
     }
 
     static async addToCart(req,res,next){
+        console.log('addToCart');
         try{
             const ProductId = req.params.id
             const UserId = req.userLogin.id
             const checkCart = await Cart.findOne({
                 where: {
                     ProductId,
-                    UserId
+                    UserId,
+                    status: false
                 },
                 include: [Product]
             })
@@ -69,6 +72,7 @@ class CartController {
     }
 
     static async updateCart (req,res,next) {
+        console.log('updatecart');
         try {
             const cartId = req.params.id
             console.log(cartId);
@@ -93,6 +97,7 @@ class CartController {
     }
 
     static async updateCartAndProduct (req,res,next) {
+        console.log('updatecartprod');
         try {
             const findCart = await Cart.findAll({
                 where: {
@@ -108,7 +113,7 @@ class CartController {
             let prodName = []
             let carts = []
             findCart.forEach(el => {
-                if(el.Product.stock <= el.quantity) {
+                if(el.Product.stock < el.quantity) {
                     errorBuy.push(el.id)
                     prodName.push(el.Product.name)
                 } else {
@@ -120,14 +125,14 @@ class CartController {
             let msg = []
             if(errorBuy.length >= 1) {
                 prodName.forEach(el => {
-                    msg = msg.push(`Stock is not available for product ${el}`)
+                    msg.push(`Stock is not available for product ${el}`)
                 });
                 return next({ errCode: 'validation', msg })
             }
 
             console.log('masokga');
 
-
+            let stock = ''
             await carts.forEach(async el => {
                 stock = +el.Product.stock
                 await Product.update({
@@ -149,29 +154,23 @@ class CartController {
             });
 
             res.status(200).json({ message: 'Successfully Updated' })
-            // const cartId = req.params.id
-            // const UserId = req.userLogin.id
-            // const { status } = req.body
-            // const updateCart = await Cart.update({
-            //     status
-            // }, {
-            //     where: {
-            //         UserId,
-            //         status: false
-            //     },
-            //     returning: true
-            // })
-            // console.log('sinijnsadknf', updateCart);
+        }
+        catch(err) {
+            next(err)
+        }
+    }
 
-
-            // let ProductId = []
-            // let quantity = []
-            // updateCart[1].forEach(el => {
-            //     ProductId.push(el.ProductId)
-            //     quantity.push(el.quantity)
-            // });
-            // res.status(200).json({ updateCart })
-            // console.log(ProductId, quantity);
+    static async deleteFromCart(req,res,next) {
+        console.log('delete');
+        try{
+            const id = req.params.id
+            const del = Cart.destroy({
+                where: {
+                    id,
+                    status: false
+                }
+            })
+            res.status(200).json({ message: 'Delete complete '})
         }
         catch(err) {
             next(err)

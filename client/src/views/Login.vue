@@ -58,7 +58,7 @@ export default {
       evt.preventDefault()
       axios({
         method: 'POST',
-        url: this.$store.state.baseUrl + '/login',
+        url: this.$store.state.baseUrl + '/loginUser',
         data: {
           email: this.form.email,
           password: this.form.password
@@ -67,6 +67,7 @@ export default {
         .then((res) => {
           localStorage.setItem('access_token', res.data.access_token)
           this.$store.commit('SET_ISLOGIN', true)
+          this.$store.commit('SET_USER', this.form.email)
           this.$router.push({ path: '/' })
         })
         .catch((err) => {

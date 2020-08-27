@@ -6,16 +6,6 @@
       <table class="table table-hover">
 
         <thead>
-          <tr id="totalPrice">
-            <th scope="row">#</th>
-            <td colspan="3" style="font-size:30px;">Total Price</td>
-            <td colspan="2" style="font-size:30px;">IDR {{ $store.state.totalPrice.toLocaleString() }}</td>
-            <td scope="col" >
-              <button class="btn btn-success" @click.prevent="paymentCart" style="font-size:25px">
-                Payment
-              </button>
-            </td>
-         </tr>
           <tr>
             <th scope="col">#</th>
             <!-- <th scope="col">Checkout?</th> -->
@@ -23,12 +13,11 @@
             <th scope="col">Product Name</th>
             <th scope="col">Product Image</th>
             <th scope="col">Quantity</th>
-            <th scope="col">Delete?</th>
+            <th scope="col">Transaction Date</th>
           </tr>
         </thead>
         <tbody>
-
-          <CartTable v-for="(cart, index) in carts" :key="cart.id" :cart="cart" :index="index"></CartTable>
+          <HistoryTable v-for="(history, index) in histories" :key="history.id" :history="history" :index="index"></HistoryTable>
         </tbody>
       </table>
     </div>
@@ -36,8 +25,8 @@
 </template>
 
 <script>
-import CartTable from '../components/CartTable.vue'
-import { mapState, mapActions } from 'vuex'
+import HistoryTable from '../components/HistoryTable.vue'
+import { mapState } from 'vuex'
 export default {
   name: 'Cart',
   data () {
@@ -47,19 +36,11 @@ export default {
   },
   computed: {
     ...mapState([
-      'carts'
+      'histories'
     ])
   },
   components: {
-    CartTable
-  },
-  methods: {
-    ...mapActions([
-      'updateStatusCart'
-    ]),
-    paymentCart () {
-      this.updateStatusCart()
-    }
+    HistoryTable
   },
   created () {
     this.$store.dispatch('fetchCarts')

@@ -12,7 +12,8 @@ export default new Vuex.Store({
     isLogin: false,
     carts: [],
     totalPrice: 0,
-    history: []
+    histories: [],
+    userLogin: ''
   },
   mutations: {
     SET_PRODUCTS (state, newProducts) {
@@ -35,10 +36,13 @@ export default new Vuex.Store({
       })
       state.carts = cartsList
       state.totalPrice = price
-      state.history = historyList
+      state.histories = historyList
     },
     SET_TOTALPRICE (state, price) {
       state.totalPrice += price
+    },
+    SET_USER (state, email) {
+      state.userLogin = email
     }
   },
   actions: {
@@ -57,6 +61,9 @@ export default new Vuex.Store({
     },
     AddToCart ({ dispatch, state }, id) {
       console.log(id)
+      if (!localStorage.access_token) {
+        return swal('Error!', 'Please login first', 'error')
+      }
       axios({
         method: 'POST',
         url: state.baseUrl + `/carts/product/${id}`,
@@ -88,9 +95,6 @@ export default new Vuex.Store({
         })
     },
     async updateStatusCart ({ dispatch, state }) {
-      // const id = ''
-      // state.carts.forEach(el => {
-      // id = el.id
       axios({
         url: `${state.baseUrl}/carts`,
         headers: {
@@ -102,10 +106,9 @@ export default new Vuex.Store({
           dispatch('fetchCarts')
           swal('Payment Completed', 'Payment completed, transaction will be moved ', 'success')
         })
-        .catch(({ response }) => {
-          console.log(response)
+        .catch(async ({ response }) => {
+          await swal('Oh No!', response.data.message.join(), 'error')
         })
-      // })
     }
   },
   modules: {

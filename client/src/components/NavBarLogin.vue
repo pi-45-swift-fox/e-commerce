@@ -26,7 +26,7 @@
             <!-- Using 'button-content' slot -->
 
             <template v-slot:button-content>
-              <em id="link">User</em>
+              <em id="link">{{ $store.state.userLogin }}</em>
             </template>
             <b-dropdown-item @click.prevent="signOut">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
@@ -49,6 +49,8 @@ export default {
     signOut () {
       localStorage.clear()
       this.$store.commit('SET_ISLOGIN', false)
+      this.$store.commit('SET_USER', '')
+      if (this.$route.path !== '/') this.$router.push({ path: '/' })
     }
   }
 }

@@ -68,8 +68,14 @@ class ProductController {
 
     static async getAllProducts(req,res,next){
         try{
-            const products = await Product.findAll()
-            if(products) {
+            const prodList = await Product.findAll()
+            if(prodList) {
+                let products = []
+                prodList.forEach(el => {
+                    if(el.stock > 0) {
+                        products.push(el)
+                    }
+                });
                 res.status(200).json({products})
             }
         } catch(err) {

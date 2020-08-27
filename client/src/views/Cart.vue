@@ -7,7 +7,7 @@
         <thead>
           <tr id="totalPrice">
             <th scope="row">#</th>
-            <td colspan="3" style="font-size:30px;">Total Price</td>
+            <td colspan="2" style="font-size:30px;">Total Price</td>
             <td colspan="2" style="font-size:30px;">IDR {{ $store.state.totalPrice.toLocaleString() }}</td>
             <td scope="col" >
               <button class="btn btn-success" @click.prevent="paymentCart" style="font-size:25px">

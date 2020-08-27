@@ -15,7 +15,6 @@
           Stock : {{ product.stock }} pcs
         </b-card-text>
         <b-button id="addCart" @click.prevent="addCart" variant="success">Add To Cart</b-button>
-
     </b-card>
   </div>
 </template>
@@ -33,6 +32,7 @@ export default {
       this.AddToCart(this.product.id)
     }
   }
+
 }
 </script>
 
