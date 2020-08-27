@@ -15,7 +15,7 @@
 export default {
   methods: {
     login () {
-      this.$store.dispatch('login', {})
+      this.$store.dispatch('showLoginForm', {})
     }
   }
 }
