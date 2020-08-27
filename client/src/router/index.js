@@ -42,10 +42,10 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name === 'Login' && localStorage.access_token) next({ name: '/' })
-  else if (to.name === 'Cart' && !localStorage.access_token) next({ name: '/login' })
-  else if (to.name === 'History' && !localStorage.access_token) next({ name: '/login' })
-  else if (to.name === 'Register' && localStorage.access_token) next({ name: '/' })
+  if (to.name === 'Login' && localStorage.access_token) next({ name: 'Home' })
+  else if (to.name === 'Cart' && !localStorage.access_token) next({ name: 'Home' })
+  else if (to.name === 'History' && !localStorage.access_token) next({ name: 'Home' })
+  else if (to.name === 'Register' && localStorage.access_token) next({ name: 'Home' })
   else next()
 })
 
