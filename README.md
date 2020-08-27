@@ -9,6 +9,11 @@ List of available endpoint:
   - `PUT /products/:id`
   - `DELETE /products/:id`
   - `POST /login`
+  - `POST /register`
+  - `POST /cart`
+  - `GET /cart`
+  - `PUT /cart/:id`
+  - `DELETE /cart/:id`
 
 
 ### POST /products
@@ -212,6 +217,233 @@ _Response (200 - OK)_
 ```json
   {
     "access_token": "<access_token>"
+  }
+```
+
+_Response (400 - Bad Request)_
+```json
+[
+  {
+    "message": "You don't put any password"
+  },
+  {
+    "message": "You don't put any email"
+  }
+]
+```
+
+_Response (500 - Internal Server Error)_
+```json
+{
+  "message": "Internal Server Error"
+}
+```
+### POST /cart
+_Request headers_
+```json
+{
+  "access_token": "<access_token>"
+}
+```
+
+_Request Body_
+```json
+  {
+    "quantity": "integer",
+    "status": "boolean",
+    "UserId": "integer",
+    "ProductId": "integer"
+  }
+
+```
+
+_Response (201 - Created)_
+```json
+  {
+    "id": "integer",
+    "quantity": "integer",
+    "status": "boolean",
+    "UserId": "integer",
+    "ProductId": "integer",
+    "createdAt": "date",
+    "updatedAt": "date"
+  }
+```
+
+_Response (400 - Bad Request)_
+```json
+[
+  {
+    "message": "quantity is empty"
+  },
+  {
+    "message": "status is empty"
+  }
+]
+```
+
+_Response (500 - Internal Server Error)_
+```json
+{
+  "message": "Internal Server Error"
+}
+```
+---
+### GET /cart
+_Request headers_
+```json
+{
+  "access_token": "<access_token>"
+}
+```
+
+_Response (200 - OK)_
+```json
+[
+  {
+    "id": 1,
+    "quantity": 1,
+    "status": true,
+    "UserId": 1,
+    "ProductId": 2,
+    "Product": "Product"
+  },
+  {
+    "id": 2,
+    "quantity": 5,
+    "status": true,
+    "UserId": 1,
+    "ProductId": 2,
+    "Product": "Product"
+  },
+  {
+    "id": 3,
+    "quantity": 1,
+    "status": true,
+    "UserId": 1,
+    "ProductId": 2,
+    "Product": "Product"
+  }
+]
+```
+
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
+}
+```
+---
+### PUT /products/:id
+_Request headers_
+```json
+{
+  "access_token": "<access_token>"
+}
+```
+
+_Request Body_
+```json
+  {
+    "quantity": "integer",
+    "status": "boolean",
+    "UserId": "integer",
+    "ProductId": "integer"
+  }
+
+```
+
+_Response (200 - OK)_
+```json
+  {
+    "id": "integer",
+    "quantity": "integer",
+    "status": "boolean",
+    "UserId": "integer",
+    "ProductId": "integer",
+    "createdAt": "date",
+    "updatedAt": "date"
+  }
+```
+
+_Response (400 - Bad Request)_
+```json
+[
+  {
+    "message": "quantity is empty"
+  },
+  {
+    "message": "status is empty"
+  }
+]
+```
+
+_Response (404 - Not Found)_
+```
+{
+  "message": "error Not Found"
+}
+```
+
+_Response (500 - Internal Server Error)_
+```json
+{
+  "message": "Internal Server Error"
+}
+```
+---
+### DELETE /products/:id
+_Request headers_
+```json
+{
+  "access_token": "<access_token>"
+}
+```
+
+_Response (200 - OK)_
+```json
+  {
+    "id": "integer",
+    "quantity": "integer",
+    "status": "boolean",
+    "UserId": "integer",
+    "ProductId": "integer",
+    "createdAt": "date",
+    "updatedAt": "date"
+  }
+```
+
+_Response (404 - Not Found)_
+```
+{
+  "message": "error Not Found"
+}
+```
+
+_Response (500 - Internal Server Error)_
+```json
+{
+  "message": "Internal Server Error"
+}
+```
+---
+### POST /register
+
+_Request Body_
+```json
+  {
+    "email": "string",
+    "password": "string"
+  }
+
+```
+
+_Response (200 - OK)_
+```json
+  {
+    "id": "integer",
+    "email": "string",
+    "role": "user"
   }
 ```
 

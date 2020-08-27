@@ -2,24 +2,10 @@
   <div id="nav">
     <b-navbar variant="faded" type="light" class="navbar">
       <b-navbar-brand tag="h1" class="mb-1" style="color: #FBF7ED;">E-Commerce</b-navbar-brand>
-      <div>
-        <b-form inline>
-          <label class="sr-only" for="inline-form-input-name">Name</label>
-          <b-input
-            id="inline-form-input-name"
-            class="mb-2 mr-sm-2 mb-sm-0 shadow-sm"
-            placeholder="Start searching your dream product..."
-            style="width: 400px;"
-          ></b-input>
-
-          <b-button variant="success" class="shadow"><b-icon-search></b-icon-search> Search</b-button>
-        </b-form>
-      </div>
       <div class="left-nav">
         <router-link to="/user/cart"><b-icon-cart4 class="shadow icon" font-scale="2"></b-icon-cart4></router-link>
-        <router-link to="/user/wishlist"><b-icon-heart-fill class="shadow ml-2 icon" font-scale="1.5"></b-icon-heart-fill></router-link>
-        <router-link to="/user"><b-icon-person class="shadow ml-2 icon" font-scale="2"></b-icon-person></router-link>
-        <b-button @click="logout" size="md" class="my-2 my-sm-0 button shadow ml-3" type="submit" variant="success">Log out</b-button>
+        <b-button v-if="access === undefined" @click="signin" size="md" class="my-2 my-sm-0 button shadow ml-3" type="submit" variant="success">Sign in</b-button>
+        <b-button v-else @click="logout" size="md" class="my-2 my-sm-0 button shadow ml-3" type="submit" variant="success">Log out</b-button>
       </div>
     </b-navbar>
   </div>
@@ -27,7 +13,25 @@
 
 <script>
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+  data () {
+    return {
+      access: ''
+    }
+  },
+  methods: {
+    signin () {
+      this.$router.push({ name: 'Login' })
+    },
+    logout () {
+      localStorage.clear()
+      this.access = ''
+      this.$router.push({ name: 'Login' })
+    }
+  },
+  created () {
+    this.access = localStorage.access_token
+  }
 }
 </script>
 

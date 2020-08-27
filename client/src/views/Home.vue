@@ -1,57 +1,23 @@
 <template>
   <div class="home vh-100 overflow-auto">
-    <Navbar class="shadow" />
-    <b-container fluid="xl" class="">
-      <b-button size="lg" variant="success" class="rounded-pill mr-2 mb-2 shadow"># Electronic</b-button>
-      <b-button size="lg" variant="success" class="rounded-pill mr-2 mb-2 shadow"># Vehicle</b-button>
-      <b-button size="lg" variant="success" class="rounded-pill mr-2 mb-2 shadow"># Tools</b-button>
-      <b-button size="lg" variant="success" class="rounded-pill mr-2 mb-2 shadow"># Clothes</b-button>
-      <b-button size="lg" variant="success" class="rounded-pill mr-2 mb-2 shadow"># Others</b-button>
+    <Navbar class="shadow fixed-top" />
+    <b-container fluid="xl" class="tags">
+      <div>
+        <b-alert v-if="alert" show variant="danger">
+          You are unauthorized please login/register <router-link to="/login">here</router-link>
+        </b-alert>
+      </div>
+      <h1>Start discovering products: </h1>
     </b-container>
-    <b-container fluid="xl" class="dashboard shadow-lg rounded-lg">
-      <h1>Hello this is dashboard</h1>
+    <b-container fluid="xl" class="dashboard shadow-lg rounded-lg overflow-auto">
       <div class="product-container">
-        <div class="item rounded-lg shadow">
-          <img src="https://ecs7.tokopedia.net/img/cache/700/product-1/2018/12/27/2065521/2065521_c2efb578-baf0-4c19-afea-7c39ebb54f03_554_554.jpg" alt="">
-          <h1>Title</h1>
-          <h3>price</h3>
-          <h6>view details</h6>
-          <h6>add to wishlist | add to cart</h6>
-        </div>
-        <div class="item rounded-lg shadow">
-          <img src="https://www.bikin.co/konveksi-baju/wp-content/uploads/2019/11/Konveksi-Baju-Kaos-Sablon.jpg" alt="">
-          <h1>Title</h1>
-          <h3>price</h3>
-          <h6>view details</h6>
-          <h6>add to wishlist | add to cart</h6>
-        </div>
-        <div class="item rounded-lg shadow">
-          <img src="https://images.bisnis-cdn.com/thumb/posts/2019/09/09/1146237/ferrari-f8-spider_06-min-mtb.jpg?w=744&h=465" alt="">
-          <h1>Title</h1>
-          <h3>price</h3>
-          <h6>view details</h6>
-          <h6>add to wishlist | add to cart</h6>
-        </div>
-        <div class="item rounded-lg shadow">
-          <img src="https://images.bisnis-cdn.com/thumb/posts/2019/09/09/1146237/ferrari-f8-spider_06-min-mtb.jpg?w=744&h=465" alt="">
-          <h1>Title</h1>
-          <h3>price</h3>
-          <h6>view details</h6>
-          <h6>add to wishlist | add to cart</h6>
-        </div>
-        <div class="item rounded-lg shadow">
-          <img src="https://images.bisnis-cdn.com/thumb/posts/2019/09/09/1146237/ferrari-f8-spider_06-min-mtb.jpg?w=744&h=465" alt="">
-          <h1>Title</h1>
-          <h3>price</h3>
-          <h6>view details</h6>
-          <h6>add to wishlist | add to cart</h6>
-        </div>
-        <div class="item rounded-lg shadow">
-          <img src="https://ecs7.tokopedia.net/img/cache/700/product-1/2018/12/27/2065521/2065521_c2efb578-baf0-4c19-afea-7c39ebb54f03_554_554.jpg" alt="">
-          <h1>Title</h1>
-          <h3>price</h3>
-          <h6>view details</h6>
-          <h6>add to wishlist | add to cart</h6>
+        <div class="item rounded-lg shadow" v-for="product in $store.state.products" :key="product.id">
+          <img class="image" :src="product.image_url" alt="">
+          <h4>{{product.name}}</h4>
+          <h6>Rp. {{product.price}}</h6>
+          <div>
+            <b-button size="sm" @click="addCart(product.id)" variant="success" class="rounded-pill mr-2 mb-2 shadow"><b-icon-cart></b-icon-cart> Cart</b-button>
+          </div>
         </div>
       </div>
     </b-container>
@@ -65,6 +31,28 @@ export default {
   name: 'Home',
   components: {
     Navbar
+  },
+  data () {
+    return {
+      alert: false
+    }
+  },
+  methods: {
+    addCart (id) {
+      if (!localStorage.access_token) {
+        this.alert = true
+      }
+
+      this.$store.dispatch('addCart', {
+        quantity: 1,
+        status: true,
+        ProductId: id
+      })
+    }
+  },
+  created () {
+    this.$store.dispatch('fetchData')
+    this.alert = false
   }
 }
 </script>
@@ -78,10 +66,14 @@ export default {
 
 .dashboard {
   background-color: #002E25;
-  margin-top: 4rem;
+  margin-top: 1rem;
   padding: 50px;
   color: #FBF7ED;
   margin-bottom: 4rem;
+}
+
+.tags {
+  margin-top: 8rem;
 }
 
 .product-container {
@@ -96,10 +88,11 @@ export default {
   margin: 10px;
   border: 1px solid #FBF7ED;
   background-color: #004C3F;
+  height: auto;
 }
 
-img {
+.image {
   width: 200px;
-  height: 60%;
+  height: 250px;
 }
 </style>
