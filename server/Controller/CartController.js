@@ -14,8 +14,17 @@ class Controller{
     }
     static async add(req, res, next){
         try{
-            const addProduct = await Cart.create({UserId:req.userLogin.id, ProductId:req.body.productId, status:'Wishlist', quantity:1})
+            const addProduct = await Cart.create({
+                UserId:req.userLogin.id,
+                ProductId:req.body.ProductId,
+                status:'Wishlist',
+                quantity:1
+            },
+            {
+                include:[Product],
+            })
             if(addProduct){
+                console.log(addProduct)
                 res.status(201).json(addProduct)
             }
         }catch(err){
@@ -24,7 +33,8 @@ class Controller{
     }
     static async update(req, res, next){
         try{
-            const updateProduct = await Cart.update({where:{id:req.params.id}, returning:true})
+            const {quantity} = req.body
+            const updateProduct = await Cart.update({quantity},{where:{id:req.params.id}, returning:true})
             if(updateProduct){
                 res.status(200).json(updateProduct[1])
             }
@@ -35,7 +45,9 @@ class Controller{
     static async delete(req, res, next){
         try{
             const deleteProduct = await Cart.destroy({where:{id:req.params.id}})
-            res.status(200).json({Message: 'Success delete data'})
+            if(deleteProduct){
+                res.status(200).json({Message: 'Success delete data'})
+            }
         }catch(err){
             next(err)
         }

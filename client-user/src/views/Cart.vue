@@ -5,7 +5,7 @@
     <!-- navbar -->
     <div class="container-fluid">
       <div class="col">
-        <CartsCards v-for="cart in $store.state.carts" :key="cart.id" :cart="cart" />
+        <CartsCards v-for="(cart, index) in $store.state.carts" :key="cart.id" :index="index" :cart="cart" />
       </div>
     </div>
   </div>

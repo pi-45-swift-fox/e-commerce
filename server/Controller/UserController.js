@@ -6,10 +6,9 @@ class UserController{
     static async register(req, res, next){
         try{
             const {email, password} = req.body
-            let role = "user"
-            const newUser = await User.create({email,password,role})
+            const newUser = await User.create({email,password})
             if(newUser) {
-                return res.status(201).json({email:newUser.email, role: newUser.role, message:"Success Register"})
+                return res.status(201).json({email:newUser.email, message:"Success Register"})
             }
         }catch(err){
             next(err)

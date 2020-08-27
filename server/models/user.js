@@ -46,5 +46,8 @@ module.exports = (sequelize, DataTypes) => {
   User.beforeCreate((user,option)=>{
     user.password = Bcrypt.encrypt(user.password)
   })
+  User.beforeCreate((user,option)=>{
+    user.role = 'user'
+  })
   return User;
 };

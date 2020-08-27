@@ -23,6 +23,7 @@
           v-model="form.password"
           required
           placeholder="Enter password"
+          type="password"
         ></b-form-input>
       </b-form-group>
 

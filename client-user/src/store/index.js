@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios.js'
 import router from '../router'
+import swal from 'sweetalert2'
+import 'sweetalert2/dist/sweetalert2.css'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -62,18 +64,71 @@ export default new Vuex.Store({
         method: 'post',
         url: 'cart',
         data: {
-          ProductId: payload
+          ProductId: payload.id
         },
         headers: {
           access_token: localStorage.token
         }
       }).then(({ data }) => {
+        swal.fire({
+          title: 'Success',
+          text: `Add ${payload.name} to cart`,
+          buttonsStyling: false,
+          confirmButtonClass: 'btn btn-success',
+          icon: 'success'
+        })
         router.push('/cart')
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    editCart (context, payload) {
+      console.log(payload)
+      axios({
+        method: 'put',
+        url: `cart/${payload.cart.id}`,
+        data: {
+          quantity: payload.quantity
+        },
+        headers: {
+          access_token: localStorage.token
+        }
+      }).then(({ data }) => {
+        swal.fire({
+          title: 'Success',
+          text: `Success edit quantity to ${payload.quantity} in your product`,
+          buttonsStyling: false,
+          confirmButtonClass: 'btn btn-success',
+          icon: 'success'
+        })
+        context.dispatch('fetchCarts')
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    deleteCart (context, cart) {
+      console.log(cart)
+      axios({
+        method: 'delete',
+        url: `cart/${cart.id}`,
+        headers: {
+          access_token: localStorage.token
+        }
+      }).then(({ data }) => {
+        swal.fire({
+          title: 'Success',
+          text: `delete ${cart.Product.name} in cart`,
+          buttonsStyling: false,
+          confirmButtonClass: 'btn btn-success',
+          icon: 'success'
+        })
+        context.dispatch('fetchCarts')
       }).catch(err => {
         console.log(err)
       })
     }
   },
+
   modules: {
   }
 })

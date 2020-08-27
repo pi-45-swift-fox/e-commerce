@@ -20,7 +20,7 @@
       <br>
       <br>
       <div class="row mx-auto justify-content-around">
-        <b-button @click.prevent='addToCart(product.id)' variant="outline-success" size="md" class=" rounded-pill">
+        <b-button @click.prevent='addToCart({id: product.id, name: product.name})' variant="outline-success" size="md" class=" rounded-pill">
         <b-icon icon="cart-plus"></b-icon>Add to cart
         </b-button>
       </div>
@@ -32,6 +32,9 @@
 
 <script>
 import { mapActions } from 'vuex'
+// import VueSwal from 'vue-swal'
+// import swal from 'sweetalert2'
+import 'sweetalert2/dist/sweetalert2.css'
 
 export default {
   name: 'Cards',
