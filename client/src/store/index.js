@@ -23,6 +23,12 @@ export default new Vuex.Store({
       state.userData = []
       localStorage.removeItem('token')
       router.push('/')
+    },
+    SET_CART (state, data) {
+      state.customer_cart = data
+    },
+    BACK_TO_MAIN_1 (state, info) {
+      router.go(router.currentRoute)
     }
   },
   actions: {
@@ -40,6 +46,19 @@ export default new Vuex.Store({
     },
     showLoginForm (context, info) {
       router.push('/login')
+    },
+    showCart (context, info) {
+      axios({
+        url: 'http://localhost:3000/cart',
+        method: 'GET',
+        headers: { access_token: localStorage.getItem('token') }
+      })
+        .then(data => {
+          context.commit('SET_CART', data.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     login (context, payload) {
       axios({
@@ -61,6 +80,49 @@ export default new Vuex.Store({
     },
     logout (context, info) {
       context.commit('LOGOUT', {})
+    },
+    goToCart (context, info) {
+      router.push('/myCart')
+    },
+    goToMain (context, info) {
+      router.push('main')
+    },
+    addProductToCart (context, info) {
+      const index = this.state.customer_cart.findIndex(x => x.productId === info.id)
+      console.log('ini index>>>>', index)
+      if (index === -1) {
+        axios({
+          url: `http://localhost:3000/cart/${info.id}`,
+          method: 'POST',
+          headers: { access_token: localStorage.getItem('token') },
+          data: {
+            quantity: info.quantity
+          }
+        })
+          .then(data => {
+            console.log('ini>>>>>>>', this.state.customer_cart[index].quantity)
+            context.commit('BACK_TO_MAIN_1', {})
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      } else {
+        axios({
+          url: `http://localhost:3000/cart/${info.id}`,
+          method: 'PUT',
+          headers: { access_token: localStorage.getItem('token') },
+          data: {
+            quantity: Number(info.quantity) + Number(this.state.customer_cart[index].quantity)
+          }
+        })
+          .then(data => {
+            context.commit('BACK_TO_MAIN_1', {})
+            console.log('ini>>>>>>>', this.state.customer_cart[index].quantity)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
     }
   },
   modules: {

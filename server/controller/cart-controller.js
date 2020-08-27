@@ -1,4 +1,4 @@
-const {Cart,product} = require('../models')
+const {Cart,product,user} = require('../models')
 
 class Controller {
     static async add (req,res) {
@@ -22,9 +22,11 @@ class Controller {
     }
     static async read (req,res) {
         try{
-            const getCart = await Cart.findAll({where:{userId:req.userLogin.id}})
+            console.log('masuk controller>>>>')
+            const getCart = await Cart.findAll({include:[user,product],where:{userId:req.userLogin.id}})
             res.status(200).json(getCart)
         } catch(err) {
+            console.log(err)
             res.status(500).json(err)
         }
     }

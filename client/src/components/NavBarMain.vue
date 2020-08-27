@@ -2,7 +2,7 @@
   <div>
       <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container">
-      <a class="navbar-brand" href="#">HacktivGram</a>
+      <a class="navbar-brand" href="#" @click.prevent="goToMain">E-commerce</a>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link" href="#" @click.prevent="showMyCart">My Cart <span class="sr-only">(current)</span></a>
@@ -26,7 +26,10 @@ export default {
       this.$store.dispatch('logout', {})
     },
     showMyCart () {
-      this.$store.dispatch('showCart', {})
+      this.$store.dispatch('goToCart', {})
+    },
+    goToMain () {
+      this.$store.dispatch('goToMain', {})
     }
   }
 }

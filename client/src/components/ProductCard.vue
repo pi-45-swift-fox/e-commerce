@@ -8,13 +8,18 @@
         <p class="card-text">{{product.price}}</p>
         <p class="card-text">{{product.stock}}</p>
       </div>
-      <button type="submit" class="btn btn-primary mb-2" >Add To Cart </button>
+      <button type="submit" class="btn btn-primary mb-2" @click.prevent="addProductToCart">Add To Cart </button>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['product']
+  props: ['product'],
+  methods: {
+    addProductToCart () {
+      this.$store.dispatch('showLoginForm', {})
+    }
+  }
 }
 </script>
 

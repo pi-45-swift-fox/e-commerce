@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Products from '../components/Products'
+import Products from '../components/ProductsMain'
 import NavBar from '../components/NavBarMain'
 export default {
   name: 'Main',
@@ -17,6 +17,7 @@ export default {
   methods: {
     getData () {
       this.$store.dispatch('fetchData', {})
+      this.$store.dispatch('showCart', {})
     }
   },
   created () {
