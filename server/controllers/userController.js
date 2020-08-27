@@ -10,7 +10,7 @@ class userController {
                 email,
                 password
             })
-            res.status(201).json(`user with email ${newUser.email} created`)
+            res.status(201).json(`user with email ${newUser.email} registered`)
         } catch (error) {
             next(error)
         }

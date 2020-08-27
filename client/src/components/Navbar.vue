@@ -29,7 +29,7 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-
+import SweetAlert from '@/helpers/sweetAlert'
 export default {
   name: 'Navbar',
   computed: {
@@ -69,7 +69,7 @@ export default {
       this.SET_ISLOGIN(false)
       localStorage.clear()
       this.backTohome()
-      this.showAlertSuccess('Successfully Logged out')
+      SweetAlert.showAlertSuccess('Berhasil Logged Out')
     }
   }
 }

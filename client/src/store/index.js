@@ -2,12 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import { vm } from '@/main'
-import VueSweetalert2 from 'vue-sweetalert2'
-// If you don't need the styles, do not connect
-import 'sweetalert2/dist/sweetalert2.min.css'
+import SweetAlert from '@/helpers/sweetAlert'
 
 Vue.use(Vuex)
-Vue.use(VueSweetalert2)
 
 export default new Vuex.Store({
   state: {
@@ -29,8 +26,8 @@ export default new Vuex.Store({
     SET_CARTS (state, newCarts) {
       state.carts = newCarts
     },
-    SET_TOTAL (state, subTotal) {
-      state.total += subTotal
+    SET_TOTAL (state, newTotal) {
+      state.total = newTotal
     },
     PLUS_TOTAL (state, value) {
       state.total += +value
@@ -55,7 +52,7 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    login ({ state, commit, dispatch }, form) {
+    login ({ state, commit }, form) {
       axios({
         method: 'POST',
         url: state.baseUrl + '/login',
@@ -65,10 +62,11 @@ export default new Vuex.Store({
           localStorage.setItem('access_token', data.access_token)
           commit('SET_ISLOGIN', true)
           vm.$router.push({ path: '/' })
-          dispatch('showAlertSuccess', `${data.email} succesfully logged in`)
+          SweetAlert.showAlertSuccess(`${data.email} succesfully logged in`)
           console.log('berhasil', data.email)
         }).catch((err) => {
           console.log('error', err)
+          SweetAlert.showAlertFail(err.response.data.message)
         })
     },
     register ({ state }, form) {
@@ -80,8 +78,10 @@ export default new Vuex.Store({
         .then((result) => {
           vm.$router.push({ path: '/login' })
           console.log('berhasil', result.data)
+          SweetAlert.showAlertSuccess(result.data)
         }).catch((err) => {
           console.log('error', err)
+          SweetAlert.showAlertFail(err.response.data.message)
         })
     },
     addProductToCart ({ state, commit }, object) {
@@ -97,10 +97,11 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          commit('SET_TOTAL', +object.price)
           console.log(data)
+          SweetAlert.showAlertSuccess('Berhasil ditambahkan ke Cart')
         }).catch((err) => {
           console.log(err)
+          SweetAlert.showAlertFail(err.response.data.message)
         })
     },
     getCarts ({ state, commit }) {
@@ -113,6 +114,13 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           commit('SET_CARTS', data)
+          let total = 0
+          data.forEach(cart => {
+            if (cart.status === 'unpaid') {
+              total += cart.Product.price * cart.quantity
+            }
+          })
+          commit('SET_TOTAL', total)
           console.log('berhasil get carts', data)
         }).catch((err) => {
           console.log(err)
@@ -144,6 +152,7 @@ export default new Vuex.Store({
         .then(({ data }) => {
           console.log('delete', data)
           vm.$router.push({ path: '/carts' })
+          SweetAlert.showAlertSuccess(data)
           dispatch('getCarts')
           commit('MINUS_TOTAL', +object.price)
         }).catch((err) => {
@@ -186,6 +195,7 @@ export default new Vuex.Store({
             vm.$router.push({ path: '/' })
             dispatch('getCarts')
             commit('REFRESH_TOTAL')
+            SweetAlert.showAlertSuccess('Termakasih sudah berbelanja')
           }).catch((err) => {
             console.log(err)
           })
@@ -202,20 +212,6 @@ export default new Vuex.Store({
         }).catch((err) => {
           console.log(err)
         })
-    },
-    showAlertFail (message) {
-      this.$swal({
-        icon: 'error',
-        title: 'Oops...',
-        text: message
-      })
-    },
-    showAlertSuccess (message) {
-      this.$swal({
-        icon: 'success',
-        title: 'SUCCESS',
-        text: message
-      })
     }
   },
   modules: {

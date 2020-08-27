@@ -29,15 +29,13 @@ import { mapMutations, mapActions, mapState } from 'vuex'
 export default {
   name: 'RowTable',
   props: ['cart', 'index', 'setTotal'],
-  data () {
-    return {
-      subtotal: this.cart.Product.price * this.cart.quantity
-    }
-  },
   computed: {
     ...mapState([
       'total'
-    ])
+    ]),
+    subtotal () {
+      return this.cart.Product.price * this.cart.quantity
+    }
   },
   methods: {
     ...mapMutations([
@@ -57,7 +55,6 @@ export default {
         id,
         quantity: +currentQuantity - 1
       })
-      this.subtotal -= price
       this.MINUS_TOTAL(price)
       this.getCarts()
     },
@@ -66,7 +63,6 @@ export default {
         id,
         quantity: +currentQuantity + 1
       })
-      this.subtotal += price
       this.PLUS_TOTAL(price)
       this.getCarts()
     }
