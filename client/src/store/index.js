@@ -75,7 +75,6 @@ export default new Vuex.Store({
         })
         .catch((err) => {
           const error = err.response.data.message;
-          // console.log(error);
           swal('Error', `${error}`, 'error');
         });
     },
@@ -96,12 +95,12 @@ export default new Vuex.Store({
         })
         .catch((err) => {
           const errors = err.response.data;
+          console.log('ini kmpre>>>', errors);
           let message;
-          if (Array.isArray(errors.message)) {
-            message = errors.message.join(', ');
-            // console.log(message, `ini message`)
+          if (Array.isArray(errors)) {
+            message = errors.join(', ');
           } else {
-            message = errors.message;
+            message = errors;
           }
           swal('Error!', `${message}`, 'error');
         });
@@ -115,12 +114,9 @@ export default new Vuex.Store({
         },
       })
         .then((result) => {
-          // console.log(result.data);
           context.commit('SET_PRODUCTS', result.data);
         })
         .catch(() => {
-          // const error = err.response.data.message;
-          // console.log(error);
           swal('Error!', 'Something went wrong.', 'error');
         });
     },
@@ -133,12 +129,9 @@ export default new Vuex.Store({
         },
       })
         .then((result) => {
-          // console.log(result.data);
           context.commit('SET_BANNERS', result.data);
         })
         .catch(() => {
-          // const error = err.response.data.message;
-          // console.log(error);
           swal('Error!', 'Something went wrong.', 'error');
         });
     },
@@ -171,11 +164,9 @@ export default new Vuex.Store({
         },
       })
         .then(() => {
-          // console.log(result.data, 'ini hasilnya gaes');
           swal('Success!', 'Success adding product to cart!', 'success');
         })
         .catch((err) => {
-          // console.log(err.response);
           swal('Error!', `${err.response.message}`, 'error');
         });
     },
@@ -188,7 +179,6 @@ export default new Vuex.Store({
         },
       })
         .then((result) => {
-          // console.log(result.data)
           context.commit('SET_CARTS', result.data);
         })
         .catch(() => {
@@ -204,7 +194,6 @@ export default new Vuex.Store({
         },
       })
         .then((result) => {
-          // console.log(result.data)
           swal('Success!', `${result.data.message}`, 'success');
           context.commit('DELETE_CART', id);
         })
@@ -221,10 +210,8 @@ export default new Vuex.Store({
         },
       })
         .then(() => {
-          // console.log(result.data)
           context.commit('RESET_CART');
           swal('Success!', 'Thank you for purchasing at our store!', 'success');
-          // router.push({name: 'Home'})
         })
         .catch(() => {
           swal('Error!', 'Something went wrong.', 'error');
