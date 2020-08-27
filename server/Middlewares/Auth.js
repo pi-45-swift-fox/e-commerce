@@ -29,7 +29,6 @@ class Authorize{
         }
     }
     static AuthorizeUser(req, res,next){
-        console.log(req.userLogin)
         if(req.userLogin.role == 'user'){
             next()
         }else{

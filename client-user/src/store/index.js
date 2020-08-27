@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios.js'
-import router from '../router'
+// import router from '../router'
 import swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.css'
 Vue.use(Vuex)
@@ -18,6 +18,9 @@ export default new Vuex.Store({
     },
     NEW_CART (state, payload) {
       state.carts = payload
+    },
+    NEW_LOGIN (state, payload) {
+      state.isLogin = payload
     }
   },
   actions: {
@@ -27,9 +30,13 @@ export default new Vuex.Store({
         url: 'products'
       }).then(({ data }) => {
         commit('NEW_PRODUCTS', data)
-        console.log(data)
-      }).catch(err => {
-        console.log(err)
+      }).catch(({ response }) => {
+        console.log(response)
+        swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${response.data.Message}`
+        })
       })
     },
     registerUser ({ commit }, data) {
@@ -41,11 +48,17 @@ export default new Vuex.Store({
         }
       }).then(({ data }) => {
         console.log('Register Successful')
-      }).catch(err => {
-        console.log(err)
+      }).catch(({ response }) => {
+        console.log(response)
+        swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${response.data.Message}`
+        })
       })
     },
     fetchCarts ({ commit }) {
+      console.log('INI FETCH CARTSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS')
       axios({
         method: 'get',
         url: 'cart',
@@ -54,36 +67,52 @@ export default new Vuex.Store({
         }
       }).then(({ data }) => {
         commit('NEW_CART', data)
-        console.log(data)
-      }).catch(err => {
-        console.log(err)
+      }).catch(({ response }) => {
+        console.log(response)
+        swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${response.data.Message}`
+        })
       })
     },
-    addToCart (context, payload) {
-      axios({
-        method: 'post',
-        url: 'cart',
-        data: {
-          ProductId: payload.id
-        },
-        headers: {
-          access_token: localStorage.token
-        }
-      }).then(({ data }) => {
+    addToCart ({ commit }, payload) {
+      console.log(payload)
+      if (!localStorage.token) {
         swal.fire({
-          title: 'Success',
-          text: `Add ${payload.name} to cart`,
-          buttonsStyling: false,
-          confirmButtonClass: 'btn btn-success',
-          icon: 'success'
+          icon: 'error',
+          title: 'Oops...',
+          text: 'You need to login first :)'
         })
-        router.push('/cart')
-      }).catch(err => {
-        console.log(err)
-      })
+      } else {
+        axios({
+          method: 'post',
+          url: 'cart',
+          data: {
+            ProductId: payload.id
+          },
+          headers: {
+            access_token: localStorage.token
+          }
+        }).then(({ data }) => {
+          swal.fire({
+            title: 'Success',
+            text: `Add ${payload.name} to cart`,
+            buttonsStyling: false,
+            confirmButtonClass: 'btn btn-success',
+            icon: 'success'
+          })
+        }).catch(({ response }) => {
+          console.log(response)
+          swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${response.data.Message}`
+          })
+        })
+      }
     },
     editCart (context, payload) {
-      console.log(payload)
       axios({
         method: 'put',
         url: `cart/${payload.cart.id}`,
@@ -102,29 +131,48 @@ export default new Vuex.Store({
           icon: 'success'
         })
         context.dispatch('fetchCarts')
-      }).catch(err => {
-        console.log(err)
+      }).catch(({ response }) => {
+        console.log(response)
+        swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${response.data.Message}`
+        })
       })
     },
     deleteCart (context, cart) {
-      console.log(cart)
-      axios({
-        method: 'delete',
-        url: `cart/${cart.id}`,
-        headers: {
-          access_token: localStorage.token
+      swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+          axios({
+            method: 'delete',
+            url: `cart/${cart.id}`,
+            headers: {
+              access_token: localStorage.token
+            }
+          }).then(({ data }) => {
+            context.dispatch('fetchCarts')
+          }).catch(({ response }) => {
+            console.log(response)
+            swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: `${response.data.Message}`
+            })
+          })
         }
-      }).then(({ data }) => {
-        swal.fire({
-          title: 'Success',
-          text: `delete ${cart.Product.name} in cart`,
-          buttonsStyling: false,
-          confirmButtonClass: 'btn btn-success',
-          icon: 'success'
-        })
-        context.dispatch('fetchCarts')
-      }).catch(err => {
-        console.log(err)
       })
     }
   },

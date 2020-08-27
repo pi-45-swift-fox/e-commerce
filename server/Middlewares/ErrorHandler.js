@@ -1,12 +1,12 @@
 function errorHandler(err, req, res, next){
     console.log(err)
     let statusCode = 500
-    let Message = ['Internal Server Error']
+    let message = ['Internal Server Error']
     let array = []
     
     if(err.errorCode == 'INVALID_USER' || err.name == 'JsonWebTokenError' || err.errorCode == 'INVALID_TOKEN'){
-        Message = ['Incorrect Username or Password']
-        array.push(Message)
+        message = ['Incorrect Username or Password']
+        array.push(message)
         statusCode = 401
     }
     
@@ -17,32 +17,33 @@ function errorHandler(err, req, res, next){
             errors.push(el.message)
         });
 
-        Message = errors
-        array.push(Message)
+        message = errors
+        array.push(message)
     }
     if (err.errorCode == "INVALID_DATA"){
         statusCode = 404
-        Message = ['Data not Found']
-        array.push(Message)
+        message = ['Data not Found']
+        array.push(message)
     }
     
     if (err.name == 'SequelizeUniqueConstraintError') {
         statusCode = 400
-        Message = ['Email already registered']
-        array.push(Message)
+        message = ['Email already registered']
+        array.push(message)
     }
     
     if (err.errorCode == "INVALID_AUTHORIZATION"){
-        Message = ['Not authorize']
+        message = ['Not authorize']
         statusCode = 401
-        array.push(Message)
+        array.push(message)
 
     }
-    
-    // console.log(err)
-    return res.status(statusCode).json({Message})
-    return res.status(statusCode).json(err)
-
+    if (err.errCode == "OUT_OF_STOCK"){
+        statusCode = 400
+        message = ["OUT OF STOCK"]
+        array.push(message)
+    }
+    return res.status(statusCode).json({message})
 }
 
 module.exports = errorHandler

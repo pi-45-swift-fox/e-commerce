@@ -1,10 +1,6 @@
 <template>
   <div>
-    <!-- navbar -->
-    <Navbar />
-    <!-- navbar -->
     <!-- banner -->
-
     <!-- banner -->
     <div class="container-fluid">
       <div class="row d-flex justify-content-around ">
@@ -15,44 +11,25 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import router from '../router'
+import { mapActions, mapState } from 'vuex'
 import Cards from '../components/Cards'
-import Navbar from '../components/Navbar'
 export default {
   name: 'Home',
-  data () {
-    return {
-      isLogin: false
-    }
-  },
   components: {
-    Cards,
-    Navbar
+    Cards
   },
   methods: {
     ...mapActions([
       'fetchProducts'
-    ]),
-    registerForm () {
-      router.push('register')
-    },
-    loginForm () {
-      router.push('/Login')
-    },
-    logout () {
-      localStorage.clear()
-      router.push('/Login')
-    }
+    ])
   },
   created () {
     this.fetchProducts()
   },
-  mounted () {
-    if (localStorage.token) {
-      this.isLogin = true
-    }
-  }
+  computed: mapState([
+    'isLogin'
+  ])
+
 }
 
 </script>

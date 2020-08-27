@@ -1,0 +1,20 @@
+[
+        {
+        "email": "grace@hot.id",
+        "password": "123",
+        "role": "user"
+    },
+    {
+        "email": "firaz@hot.id",
+        "password": "123",
+        "role": "user"
+    }, {
+        "email": "ismat@hot.id",
+        "password": "123",
+        "role": "user"
+    }, {
+        "email": "isro@hot.id",
+        "password": "123",
+        "role": "user"
+    }
+]

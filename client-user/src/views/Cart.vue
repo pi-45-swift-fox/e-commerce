@@ -1,8 +1,5 @@
 <template>
   <div>
-    <!-- navbar -->
-    <Navbar />
-    <!-- navbar -->
     <div class="container-fluid">
       <div class="col">
         <CartsCards v-for="(cart, index) in $store.state.carts" :key="cart.id" :index="index" :cart="cart" />
@@ -15,7 +12,6 @@
 import { mapActions } from 'vuex'
 import router from '../router'
 import CartsCards from '../components/CartsCards'
-import Navbar from '../components/Navbar'
 export default {
   name: 'Carts',
   data () {
@@ -24,8 +20,7 @@ export default {
     }
   },
   components: {
-    CartsCards,
-    Navbar
+    CartsCards
   },
   methods: {
     ...mapActions([

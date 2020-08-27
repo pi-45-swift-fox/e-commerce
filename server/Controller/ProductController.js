@@ -22,7 +22,6 @@ class UserController {
     static async add(req, res, next) {
         
         try{
-
             const {name, image_url, price, stock} = req.body
             const newData = await Product.create({name,image_url,price,stock})
             res.status(201).json({newData})

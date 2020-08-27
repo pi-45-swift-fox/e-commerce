@@ -29,7 +29,7 @@
                   <!-- @click.prevent='editCart(product.id)' -->
                   <!-- Modal -->
                   <div>
-                    <b-button @click="show=true" size='md' class="rounded-pill" variant="outline-primary">
+                    <b-button @click.prevent="show=true" size='md' class="rounded-pill" variant="outline-primary">
                       <b-icon icon="cart-plus"></b-icon>Edit Product
                     </b-button>
                     <b-modal v-model="show" title="Edit Product Here">
@@ -43,7 +43,7 @@
                         <b-row class="mb-1">
                           <b-col cols="3">Quantity</b-col>
                           <b-col>
-                            <input type="number" v-model="quantity" name="quantity" min="1"></b-col>
+                            <input type="number" v-model="quantity" name="quantity" min="1" :max="cart.Product.stock"></b-col>
                         </b-row>
                         <b-row>
                           <b-col cols="3">Status:</b-col>
@@ -90,6 +90,7 @@ export default {
   },
   methods: {
     ...mapActions([
+      'fetchCarts',
       'editCart',
       'deleteCart'
     ]),
@@ -100,6 +101,9 @@ export default {
       this.editCart({ cart: this.cart, quantity: this.quantity })
       this.show = false
     }
+  },
+  created () {
+    this.fetchCarts()
   }
 }
 </script>

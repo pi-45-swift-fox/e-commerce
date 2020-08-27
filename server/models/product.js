@@ -58,10 +58,6 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty : {
           msg : "Stock must be filled"
         },
-        min : {
-          args : 1,
-          msg : "Minimal stock is 1"
-        },
         isInt : {
           msg : "Input stock must be a number"
         }

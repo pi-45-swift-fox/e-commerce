@@ -45,10 +45,10 @@ export default {
         email: this.form.email, password: this.form.password
       })
         .then(({ data }) => {
-          console.log(data)
           localStorage.token = data.token
           localStorage.email = data.email
           localStorage.id = data.id
+          this.$store.commit('NEW_LOGIN', true)
           if (data.role === 'admin' || data.role === 'user') {
             router.push('/')
           }
