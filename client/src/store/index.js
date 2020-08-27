@@ -5,8 +5,8 @@ import swal from 'sweetalert';
 import router from '../router';
 
 Vue.use(Vuex);
-const baseURL = 'http://localhost:3000';
-// const baseURL = 'https://desolate-tundra-18530.herokuapp.com';
+// const baseURL = 'http://localhost:3000';
+const baseURL = 'https://young-temple-86824.herokuapp.com';
 
 export default new Vuex.Store({
   state: {
