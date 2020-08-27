@@ -20,11 +20,13 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchProducts'
+      'fetchProducts',
+      'fetchCarts'
     ])
   },
   created () {
     this.fetchProducts()
+    this.fetchCarts()
   }
 }
 </script>

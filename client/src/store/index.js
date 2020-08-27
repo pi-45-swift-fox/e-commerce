@@ -61,6 +61,28 @@ export default new Vuex.Store({
     logout ({ commit }) {
       commit('SET_LOGGED', false)
       localStorage.removeItem('access_token')
+      commit('SET_CARTS', [
+        {
+          id: 0,
+          ProductId: 0,
+          UserId: 0,
+          quantity: 0,
+          status: false,
+          User: {
+            id: 0,
+            email: '',
+            password: '',
+            role: ''
+          },
+          Product: {
+            id: 0,
+            name: '',
+            image_url: '',
+            price: 0,
+            stock: 0
+          }
+        }
+      ])
       router.push({ name: 'Login' })
     },
     loggedIn ({ commit }, payload) {
@@ -79,9 +101,10 @@ export default new Vuex.Store({
           commit('SET_CARTS', data)
         })
     },
-    addCart ({ commit }, ProductId) {
+    addCart ({ commit, dispatch }, ProductId) {
       axios.post('/carts', { ProductId }, { headers: { access_token: localStorage.getItem('access_token') } })
         .then(() => {
+          dispatch('fetchCarts')
           Swal.fire({
             text: 'Successfully added the item to your chart!',
             showCancelButton: true,
@@ -90,8 +113,10 @@ export default new Vuex.Store({
             cancelButtonColor: '#d33',
             confirmButtonText: 'Go To MyCart',
             cancelButtonText: 'Continue Shopping'
-          }).then(() => {
-            router.push({ name: 'Cart' })
+          }).then((result) => {
+            if (result.isConfirmed) {
+              router.push({ name: 'Cart' })
+            }
           })
         })
         .catch(err => {
@@ -110,7 +135,7 @@ export default new Vuex.Store({
         })
         .catch(console.log)
     },
-    cartDelete ({ commit }, payload) {
+    cartDelete ({ commit, dispatch }, payload) {
       axios.delete(`/carts/${payload.cartId}/${payload.ProductId}`, { headers: { access_token: localStorage.getItem('access_token') } })
         .then(() => {
           Swal.fire(
@@ -118,6 +143,7 @@ export default new Vuex.Store({
             'Your item has been removed.',
             'success'
           )
+          dispatch('fetchCarts')
         })
         .catch(console.log)
     }

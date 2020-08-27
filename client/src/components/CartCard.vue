@@ -73,6 +73,7 @@ export default {
       }).then((result) => {
         if (result.value) {
           this.$store.dispatch('cartDelete', { cartId: this.cart.id, ProductId: this.cart.ProductId })
+          this.$store.dispatch('fetchCarts')
         }
       })
     }

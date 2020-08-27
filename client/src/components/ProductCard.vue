@@ -7,10 +7,11 @@
           <h5>Rp. {{product.price.toLocaleString()}}</h5>
           <h5>stock: {{product.stock}}</h5>
           <div>
-            <button @click.prevent="addToCart()" type="button" class="btn btn-outline-dark">
+            <button @click.prevent="addToCart()" type="button" class="btn btn-outline-dark" :disabled=isLogged>
               Add To Cart
             </button>
           </div>
+          <p v-if="isLogged">you need to login to access cart</p>
         </div>
       </div>
   </div>
@@ -32,24 +33,35 @@ export default {
   methods: {
     ...mapActions([
       'addCart',
-      'cartQuantityIncrement'
+      'fetchCarts'
     ]),
     addToCart () {
       if (!this.duplicate) {
         this.addCart(this.product.id)
+        this.duplicate = true
       } else if (this.duplicate) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'You already have this item on your cart!'
+          text: 'You already have this item in your cart!'
         })
       }
     }
   },
+  computed: {
+    isLogged () {
+      if (!localStorage.getItem('access_token')) {
+        return true
+      } else {
+        return false
+      }
+    }
+  },
   mounted () {
+    this.fetchCarts()
   },
   created () {
-    this.$store.dispatch('fetchCarts')
+    this.fetchCarts()
     const data = this.$store.state.carts
     for (let i = 0; i < data.length; i++) {
       if (data[i].ProductId === +this.product.id) {
@@ -83,5 +95,8 @@ img {
   box-shadow: 0 0 4px 0 black;
   border-radius: 2px;
   z-index: 10;
+}
+p {
+  color: red;
 }
 </style>
