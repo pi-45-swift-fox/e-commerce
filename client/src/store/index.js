@@ -84,25 +84,40 @@ export default new Vuex.Store({
           SweetAlert.showAlertFail(err.response.data.message)
         })
     },
-    addProductToCart ({ state, commit }, object) {
-      axios({
-        method: 'POST',
-        url: state.baseUrl + '/carts',
-        headers: {
-          access_token: localStorage.access_token
-        },
-        data: {
-          ProductId: object.id,
-          quantity: 1
+    addProductToCart ({ state, dispatch }, object) {
+      let check = false
+      state.carts.forEach(cart => {
+        if (cart.ProductId === object.id) {
+          dispatch('updateQuantity', { id: cart.id, quantity: cart.quantity + 1 })
+          check = true
         }
       })
-        .then(({ data }) => {
-          console.log(data)
-          SweetAlert.showAlertSuccess('Berhasil ditambahkan ke Cart')
-        }).catch((err) => {
-          console.log(err)
-          SweetAlert.showAlertFail(err.response.data.message)
+      if (check === true) {
+        SweetAlert.showAlertSuccess('Product sudah ada dicart berhasil ditambahkan jumlah pesanan')
+      } else {
+        axios({
+          method: 'POST',
+          url: state.baseUrl + '/carts',
+          headers: {
+            access_token: localStorage.access_token
+          },
+          data: {
+            ProductId: object.id,
+            quantity: 1
+          }
         })
+          .then(({ data }) => {
+            console.log(data)
+            SweetAlert.showAlertSuccess('Berhasil ditambahkan ke Cart')
+          }).catch((err) => {
+            console.log(err)
+            if (err.response.data.message === 'Not Authorized') {
+              SweetAlert.showAlertFail('Please Login First')
+            } else {
+              SweetAlert.showAlertFail(err.response.data.message)
+            }
+          })
+      }
     },
     getCarts ({ state, commit }) {
       axios({
@@ -180,25 +195,27 @@ export default new Vuex.Store({
     },
     updateStatus ({ state, commit, dispatch }) {
       state.carts.forEach(cart => {
-        axios({
-          method: 'PUT',
-          url: state.baseUrl + `/carts/${cart.id}`,
-          headers: {
-            access_token: localStorage.access_token
-          },
-          data: {
-            status: 'paid'
-          }
-        })
-          .then(({ data }) => {
-            console.log('berhasil pay', data)
-            vm.$router.push({ path: '/' })
-            dispatch('getCarts')
-            commit('REFRESH_TOTAL')
-            SweetAlert.showAlertSuccess('Termakasih sudah berbelanja')
-          }).catch((err) => {
-            console.log(err)
+        if (cart.status === 'unpaid') {
+          axios({
+            method: 'PUT',
+            url: state.baseUrl + `/carts/${cart.id}`,
+            headers: {
+              access_token: localStorage.access_token
+            },
+            data: {
+              status: 'paid'
+            }
           })
+            .then(({ data }) => {
+              console.log('berhasil pay', data)
+              vm.$router.push({ path: '/' })
+              dispatch('getCarts')
+              commit('REFRESH_TOTAL')
+              SweetAlert.showAlertSuccess('Termakasih sudah berbelanja')
+            }).catch((err) => {
+              console.log(err)
+            })
+        }
       })
     },
     getBanners ({ state, commit }) {

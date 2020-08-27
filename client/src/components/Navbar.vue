@@ -1,6 +1,6 @@
 <template>
 <b-navbar toggleable="lg" type="dark" style="background-color: #5eaaa8">
-    <router-link class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" to="/">Serba Ada Shop</router-link>
+    <router-link class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" to="/"><img src="../assets/serbada.png" alt="" style="height:50px; width:50px; box-shadow: 1px;">Serba Ada Shop</router-link>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 

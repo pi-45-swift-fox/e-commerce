@@ -76,7 +76,7 @@ export default {
 <style scooped>
 .register {
   background-color: #5eaaa8;
-  height: 91vh;
+  height: 88vh;
 }
 
 #register-img {

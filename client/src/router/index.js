@@ -99,7 +99,12 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  next()
+  if (to.name === 'Login' && localStorage.access_token) next({ name: 'Carts' })
+  else if (to.name === 'Carts' && !localStorage.access_token) next({ name: 'Login' })
+  else if (to.name === 'Login' && localStorage.access_token) next({ name: 'History' })
+  else if (to.name === 'History' && !localStorage.access_token) next({ name: 'Login' })
+  else if (to.name === 'Register' && localStorage.access_token) next({ name: 'Carts' })
+  else next()
 })
 
 export default router
