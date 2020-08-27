@@ -1,14 +1,28 @@
 <template>
 <div class="content">
-  <Navbar />
-  <h1>Checkout List</h1>
-  <div class="ProductList">
-      <CartsItem v-for="cart in carts" :key="cart.id" :cart="cart" />
+  <div class="navbar">
+    <Navbar />
+  </div>
+  <div id="user" v-if="$store.state.isLogin">
+      <h1>
+        Your Balance: Rp. {{$store.state.balance}}
+        <hr>
+      </h1>
+    </div>
+  <div class="title">
+    <h1>Checkout List</h1>
+        <!-- <a href="/" id="home-btn" class="navbtn" @click.prevent="topup"> Top Up Balance</a> -->
+  </div>
+  <div class="list">
+    <div class="ProductList">
+        <CartsItem v-for="cart in carts" :key="cart.id" :cart="cart" />
+    </div>
   </div>
 </div>
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import CartsItem from '@/components/CartsItem.vue';
 import Navbar from '../components/Navbar.vue';
 
@@ -22,6 +36,28 @@ export default {
     carts() {
       return this.$store.state.carts;
     },
+  },
+  methods: {
+    topup() {
+      Swal.fire({
+        title: 'Top Up Balance',
+        icon: 'info',
+        html: `
+        <hr>
+        name: 
+        <br>
+        price: 
+        <br>
+        total: item(s)
+        <hr>
+        `,
+        showCancelButton: true,
+        confirmButtonColor: '#3085D6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+      })
+      this.$store.dispatch('topUp')
+    }
   },
   created() {
     this.$store.dispatch('fetchCarts');
@@ -44,17 +80,45 @@ li {
 a {
   color: #42b983;
 }
+.title {
+  margin-top: -3%;
+}
 .ProductList{
-    /* display: flex;
+    display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-top: 7%;
+    margin-top: 10%;
     margin-left: 30px;
-    margin-right: 30px; */
+    margin-right: 30px;
 }
 .content {
-  background-image: url("https://cdn6.f-cdn.com/contestentries/1476645/23802538/5c78ce310802b_thumb900.jpg");
-  background-size: cover;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQg9B11XyIffHOCRe7pB6ELLJ0cOGmallnBtQ&usqp=CAU");
+    background-size: cover;
 }
-
+.list {
+  margin: auto;
+  width: 80%;
+  height: 530px;
+  overflow: auto;
+  background-color: beige;
+}
+#user {
+    display: inline-block;
+    left: 13px;
+    font-size: 10px;
+    margin-top: 3%;
+    margin-left: 77%;
+    /* padding: 9px; */
+    border: 1px solid black;
+    border-radius: 10px;
+}
+#home-btn {
+    margin-left: 77%;
+    text-decoration: none;
+    color: lightgreen;
+}
 </style>

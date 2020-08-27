@@ -92,21 +92,22 @@ class UserController {
     }
 
     static updateBalance(req, res, next) {
+        console.log('masuk di controller');
         const id = req.UserId
         User.update({ balance: req.body.balance }, {
                 where: {
                     id: id
                 }
             })
-            .then((data) => {
-                return res.status(201).json({ data })
-            })
-            .catch((err) => {
-                next({
-                    name: 'InternalServerError',
-                    errors: [{ msg: 'Failed to Update.' }]
-                })
-            })
+        //     .then((data) => {
+        //         return res.status(201).json({ data })
+        //     })
+        //     .catch((err) => {
+        //         next({
+        //             name: 'InternalServerError',
+        //             errors: [{ msg: 'Failed to Update.' }]
+        //         })
+        //     })
     }
 
 }

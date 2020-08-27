@@ -14,17 +14,80 @@
         "pricer": "15000000"
     },
     {
-        "name": "Acer Predator",
-        "image": "https://cdn.pcpartpicker.com/static/forever/images/product/ce6a08c0d78c3f627c28b9c7321f43f1.256p.jpg",
-        "description": "Shop Gaming Products",
-        "stock": "10",
-        "pricer": "12000000"
-    },
-    {
         "name": "Dell Allienware",
         "image": "https://s3n.cashify.in/cashify/product/img/xhdpi/Alienware.jpeg",
         "description": "Shop Gaming Products",
         "stock": "25",
         "pricer": "12000000"
+    },
+    {
+        "name": "Apple Watch",
+        "image": "https://images-na.ssl-images-amazon.com/images/I/71DnIj%2B%2BjUL._AC_SX466_.jpg",
+        "description": "Apple Bagus",
+        "stock": "30",
+        "pricer": "1000000"
+    },
+    {
+        "name": "Samsung Watch",
+        "image": "https://images.samsung.com/is/image/samsung/uk-galaxy-watch-active-sm-r500nzsabtu-frontsilver-146054694?$PD_GALLERY_L_JPG$",
+        "description": "Samsung Bagus",
+        "stock": "25",
+        "pricer": "900000"
+    },
+    {
+        "name": "Huawei Watch",
+        "image": "https://cdn.alzashop.com/ImgW.ashx?fd=f3&cd=HU4692b4",
+        "description": "Huawei Bagus",
+        "stock": "25",
+        "pricer": "5000000"
+    },
+    {
+        "name": "Airpods 2",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTOYYmLy6XRzHatAfuK4cAw1_1OwBc7v0TfiI18-mvotrHRzjRzEDOzgJt955o&usqp=CAc",
+        "description": "earpods keren",
+        "stock": "25",
+        "pricer": "2000000"
+    },
+    {
+        "name": "Samsung galaxy buds",
+        "image": "https://s.sdgcdn.com/7/2019/02/e9f320516623fc2a422c4bb08f73e19326fd544f_galaxy_buds_accessories_black.jpg",
+        "description": "samsung buds gokils",
+        "stock": "25",
+        "pricer": "1500000"
+    },
+    {
+        "name": "Iphone 11 Pro Max",
+        "image": "https://ecs7.tokopedia.net/img/cache/700/product-1/2019/10/9/3157143/3157143_2aec908d-d66e-4238-9e8d-3932e168ae29_1112_1112",
+        "description": "Handphone Pejabat",
+        "stock": "25",
+        "pricer": "19000000"
+    },
+    {
+        "name": "Samsung Galaxy S20",
+        "image": "https://ecs7.tokopedia.net/img/cache/700/product-1/2019/10/9/3157143/3157143_2aec908d-d66e-4238-9e8d-3932e168ae29_1112_1112",
+        "description": "Handphone Semi Pejabat",
+        "stock": "25",
+        "pricer": "12000000"
+    },
+    {
+        "name": "Mac Air",
+        "image": "https://ecs7.tokopedia.net/img/cache/700/product-1/2019/10/9/3157143/3157143_2aec908d-d66e-4238-9e8d-3932e168ae29_1112_1112",
+        "description": "Macbook Apple",
+        "stock": "25",
+        "pricer": "16000000"
+    },
+    {
+        "name": "PS 4",
+        "image": "https://assets.croma.com/medias/sys_master/images/images/hf6/h92/8923255242782/208749_pjpeg.jpg",
+        "description": "Gaming Offline",
+        "stock": "25",
+        "pricer": "7000000"
+    },
+    {
+        "name": "Nintendo Switch",
+        "image": "https://www.nintendo.com/content/dam/noa/en_US/hardware/switch/nintendo-switch-new-package/gallery/package_redblue.jpg",
+        "description": "Gaming Offline",
+        "stock": "25",
+        "pricer": "4000000"
     }
 ]

@@ -4,7 +4,9 @@
         <!-- <router-link class="list-items" to="/">Home</router-link> |
         <router-link class="list-items" to="/carts">Carts </router-link> | -->
         <a href="/" id="home-btn" class="navbtn" @click.prevent="home"> Home</a>
-        <a href="/carts" class="navbtn" @click.prevent="carts"> Carts</a>
+        <a href="/carts" id="carts-btn" class="navbtn" @click.prevent="carts">
+          Carts <span style="color: red;">{{$store.state.countCart}}</span>   
+        </a>
         <a href="" class="navbtn" @click.prevent="logout"> Logout</a>
       </div>
     </div>

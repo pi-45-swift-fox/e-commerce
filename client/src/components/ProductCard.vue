@@ -2,12 +2,12 @@
     <div id="productCard">
         <h1>{{product.name}}</h1>
         <img :src="product.image" alt="" height="120px" width="90px">
-        <h3>Description:</h3>
-        <h4>{{product.description}}</h4>
-        <h3>Price:</h3>
-        <h4>{{product.pricer}}</h4>
-        <h3>Stock:</h3>
-        <h4>{{product.stock}}</h4>
+        <h3>Description:   {{product.description}}</h3>
+        <!-- <h4></h4> -->
+        <!-- <h3>Price:</h3> -->
+        <h3>Price:  {{product.pricer}}</h3>
+        <!-- <h3>Stock:</h3> -->
+        <h3>Stock:   {{product.stock}}</h3>
             <form v-if="$store.state.isLogin" @submit.prevent="addToCart(product.id)">
                 <input type="number" min="1" v-model="quantity">
                 <button type="submit">Add To Cart</button>
@@ -61,7 +61,7 @@ export default {
                   toast: true,
                   position: 'top-end',
                   showConfirmButton: false,
-                  timer: 3000,
+                  timer: 1000,
                   timerProgressBar: true,
                   onOpen: (toast) => {
                     toast.addEventListener('mouseenter', Swal.stopTimer);

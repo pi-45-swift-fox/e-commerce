@@ -140,17 +140,14 @@ class ProductController {
             })
     }
     static buyProduct (req, res, next) {
-        const payload = {
-                quantity: req.body.quantity
-        }
-        Product.decrement({ stock: payload.quantity}, { where: { id: req.params.id } })
+        Product.decrement({ stock: req.body.quantity}, { where: { id: req.params.id } })
         .then((data) => {
             Cart.destroy({
                 where: {id: req.body.cartId}
             })
         })
-        .then(() => {
-            return res.status(200).json({message: "thank you for purchasing"})
+        .then((result) => {
+            return res.status(200).json({message: "thank you for purchasing", price: req.body.price})
         })
         .catch((err) => {
             next({

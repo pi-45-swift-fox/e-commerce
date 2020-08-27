@@ -1,16 +1,5 @@
 <template>
   <div class="carts">
-    <!-- <div class="navbar">
-      <Navbar />
-    </div>
-    <div>
-      <h1>Checkout List</h1>
-    </div>
-    <div>
-      <h1>
-        saldo: {{$store.state.balance}}
-      </h1>
-    </div> -->
     <div class="productCard">
         <h1>{{cart.Product.name}}</h1>
         <img :src="cart.Product.image" alt="" height="120px" width="90px">
@@ -20,7 +9,7 @@
         <h4>{{cart.Product.pricer}}</h4>
         <h3>Stock:</h3>
         <h4>{{cart.quantity}}</h4>
-        <button @click.prevent="buy({id: cart.id, quantity: cart.quantity, productId: cart.ProductId})" type="submit">Buy Now</button>
+        <button @click.prevent="buy({id: cart.id, quantity: cart.quantity, productId: cart.ProductId, price: cart.Product.pricer, name: cart.Product.name})" type="submit">Buy Now</button>
         <button @click.prevent="remove(cart.id)" type="submit">Remove This Item</button>
     </div>
   </div>
@@ -51,12 +40,11 @@ export default {
     remove(id) {
       Swal.fire({
         title: 'Are you sure?',
-        text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085D6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, destroy it!',
+        confirmButtonText: 'Yes',
       })
         .then((results) => {
           if (results.value) {
@@ -67,7 +55,7 @@ export default {
                   toast: true,
                   position: 'top-end',
                   showConfirmButton: false,
-                  timer: 3000,
+                  timer: 1000,
                   timerProgressBar: true,
                   onOpen: (toast) => {
                     toast.addEventListener('mouseenter', Swal.stopTimer);
@@ -86,7 +74,51 @@ export default {
         });
     },
     buy (payload) {
-      this.$store.dispatch('buyItem', payload)
+      console.log(payload,'ini payload');
+      Swal.fire({
+        title: 'Are you sure?',
+        icon: 'question',
+        html: `
+        Detail Product
+        <hr>
+        name: ${payload.name}
+        <br>
+        price: ${payload.price}
+        <br>
+        total: ${payload.quantity} item(s)
+        <hr>
+        `,
+        showCancelButton: true,
+        confirmButtonColor: '#3085D6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+      })
+        .then((results) => {
+          if (results.value) {
+              this.$store.dispatch('buyItem', payload)
+                .then(() => {
+                  // this.$store.dispatch('fetchCarts');
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true,
+                    onOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer);
+                      toast.addEventListener('mouseleave', Swal.resumeTimer);
+                    },
+                  });
+                  Toast.fire({
+                    icon: 'success',
+                    title: 'Purchasing completed!',
+                  });
+                });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
     }
   },
 };
@@ -94,21 +126,22 @@ export default {
 
 <style scoped>
  .productCard{
-    background: blanchedalmond;
+    /* background: blanchedalmond; */
     margin: 5px;
     width: 300px;
     height: 100%;
     border-radius: 10px;
-    margin-top: -8%;
+    margin-top: 5%;
     margin-bottom: 10%;
  }
  .carts {
-  margin: auto;
-  width: 80%;
-  height: 400px;
-  overflow: auto;
-  background-color: beige;
-    /* flex-direction: wrap; */
+    background: blanchedalmond;
+    margin: 2px;
+    width: 300px;
+    height: 100%;
+    border-radius: 10px;
+    margin-top: -4%;
+    margin-bottom: 10%;
  }
  h1{
      font-size: 20px;
