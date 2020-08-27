@@ -27,6 +27,7 @@ export default new Vuex.Store({
     },
     SET_LOGGED(state, payload) {
       // this.username = payload.username
+      console.log(payload, 'di mutations');
       state.isLogin = payload.isLogin;
       state.username = payload.username
       state.balance = payload.balance
@@ -70,9 +71,9 @@ export default new Vuex.Store({
           },
         })
           .then((result) => {
-            console.log(result, '<<<');
             resolve(result.data);
-            context.commit('SET_LOGGED', {payload: result.data, isLogin: true});
+            console.log(result.data, '<<<');
+            context.commit('SET_LOGGED', {username: result.data.username, balance: result.data.balance, isLogin: true});
           })
           .catch((err) => {
             reject(err);
