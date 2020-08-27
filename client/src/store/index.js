@@ -63,7 +63,7 @@ export default new Vuex.Store({
         const { password } = payload;
         return axios({
           method: 'POST',
-          url: 'http://localhost:3000/login',
+          url: 'https://pure-eyrie-81057.herokuapp.com/login',
           data: {
             email,
             password,
@@ -85,7 +85,7 @@ export default new Vuex.Store({
         const { password } = payload;
         return axios({
           method: 'POST',
-          url: 'http://localhost:3000/admin/login',
+          url: 'https://pure-eyrie-81057.herokuapp.com/admin/login',
           data: {
             email,
             password,
@@ -107,7 +107,7 @@ export default new Vuex.Store({
     removeFromCart(context, payload) {
       return axios({
         method: 'delete',
-        url: `http://localhost:3000/carts/${payload}`,
+        url: `https://pure-eyrie-81057.herokuapp.com/carts/${payload}`,
         headers: {
           access_token: localStorage.getItem('access_token'),
         },
@@ -127,7 +127,7 @@ export default new Vuex.Store({
       const { balance } = payload;
       return axios({
         method: 'POST',
-        url: 'http://localhost:3000/register',
+        url: 'https://pure-eyrie-81057.herokuapp.com/register',
         data: {
           email,
           password,
@@ -146,7 +146,7 @@ export default new Vuex.Store({
     addToCart(context, payload) {
       axios({
         method: 'POST',
-        url: 'http://localhost:3000/carts',
+        url: 'https://pure-eyrie-81057.herokuapp.com/carts',
         data: {
           quantity: payload.quantity,
           ProductId: payload.id,
@@ -164,7 +164,7 @@ export default new Vuex.Store({
     fetchProducts(context) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/products',
+        url: 'https://pure-eyrie-81057.herokuapp.com/products',
         headers: {
           access_token: localStorage.getItem('access_token'),
         },
@@ -178,7 +178,7 @@ export default new Vuex.Store({
     fetchCarts(context) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/carts',
+        url: 'https://pure-eyrie-81057.herokuapp.com/carts',
         headers: {
           access_token: localStorage.getItem('access_token'),
         },
@@ -198,7 +198,7 @@ export default new Vuex.Store({
       } else {
         axios({
           method: 'put',
-          url: 'http://localhost:3000/products/buy/'+ payload.productId,
+          url: 'https://pure-eyrie-81057.herokuapp.com/products/buy/'+ payload.productId,
           headers: {
             access_token: localStorage.access_token
           },
@@ -222,7 +222,7 @@ export default new Vuex.Store({
       console.log( 'di actions');
       axios({
         method: 'put',
-        url: 'http://localhost:3000/balance'
+        url: 'https://pure-eyrie-81057.herokuapp.com/balance'
       })
         .then(result => {
 
