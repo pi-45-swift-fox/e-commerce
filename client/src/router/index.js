@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/LoginForm.vue'
 import Main from '../views/Main'
 import Cart from '../views/MyCart.vue'
+import Register from '../views/RegisterForm.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     component: Login
   },
   {
+    path: '/register',
+    name: 'Register',
+    component: Register
+  },
+  {
     path: '/main',
     name: 'Main',
     component: Main
@@ -47,6 +53,9 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.name !== 'Login' && from.name === 'Home' && !localStorage.getItem('token')) {
     router.push('/')
+  }
+  if (to.name === 'Register' && from.name === 'Home' && !localStorage.getItem('token')) {
+    next()
   } else {
     next()
   }

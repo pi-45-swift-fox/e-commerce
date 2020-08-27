@@ -47,6 +47,9 @@ export default new Vuex.Store({
     showLoginForm (context, info) {
       router.push('/login')
     },
+    showRegisterForm (context, info) {
+      router.push('/register')
+    },
     showCart (context, info) {
       axios({
         url: 'http://localhost:3000/cart',
@@ -107,12 +110,18 @@ export default new Vuex.Store({
             console.log(err)
           })
       } else {
+        let newQuantity = 0
+        if (Number(info.quantity) + Number(this.state.customer_cart[index].quantity) > Number(this.state.customer_cart[index].product.stock)) {
+          newQuantity = Number(this.state.customer_cart[index].product.stock)
+        } else {
+          newQuantity = Number(info.quantity) + Number(this.state.customer_cart[index].quantity)
+        }
         axios({
           url: `http://localhost:3000/cart/${info.id}`,
           method: 'PUT',
           headers: { access_token: localStorage.getItem('token') },
           data: {
-            quantity: Number(info.quantity) + Number(this.state.customer_cart[index].quantity)
+            quantity: newQuantity
           }
         })
           .then(data => {
