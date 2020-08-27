@@ -3,11 +3,23 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/cart">Cart</router-link> |
-      <button class="btn btn-danger">Logout</button>
+      <button v-if="this.$store.state.loggedIn" @click.prevent="$store.dispatch('logout')" class="btn btn-outline-danger">Logout</button>
+      <button v-else class="btn btn-outline-success"><router-link to="/login">Login</router-link></button>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'App',
+  mounted () {
+    if (localStorage.getItem('access_token')) {
+      this.$store.dispatch('loggedIn', true)
+    }
+  }
+}
+</script>
 
 <style>
 #app {

@@ -7,10 +7,7 @@
           <h5>Rp. {{product.price.toLocaleString()}}</h5>
           <h5>stock: {{product.stock}}</h5>
           <div>
-            <!-- Modal component -->
-            <CartModal :product="product" />
-              <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <button @click.prevent="addToCart()" type="button" class="btn btn-outline-dark">
               Add To Cart
             </button>
           </div>
@@ -21,26 +18,45 @@
 
 <script>
 import { mapActions } from 'vuex'
-import CartModal from './CartModal.vue'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'ProductCard',
-  components: {
-    CartModal
-  },
-  props: ['product'],
   data () {
     return {
-      quantity: 1
+      duplicate: false,
+      cartId: 0
     }
   },
+  props: ['product'],
   methods: {
     ...mapActions([
-      'addCart'
-    ])
+      'addCart',
+      'cartQuantityIncrement'
+    ]),
+    addToCart () {
+      if (!this.duplicate) {
+        this.addCart(this.product.id)
+      } else if (this.duplicate) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'You already have this item on your cart!'
+        })
+      }
+    }
   },
-  computed: {
-
+  mounted () {
+  },
+  created () {
+    this.$store.dispatch('fetchCarts')
+    const data = this.$store.state.carts
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].ProductId === +this.product.id) {
+        this.duplicate = true
+        this.cartId = data[i].id
+      }
+    }
   }
 }
 </script>
