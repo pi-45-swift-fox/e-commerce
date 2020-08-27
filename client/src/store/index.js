@@ -123,7 +123,27 @@ export default new Vuex.Store({
             console.log(err)
           })
       }
+    },
+    deleteCart (context, id) {
+      axios({
+        url: `http://localhost:3000/cart/${id}`,
+        method: 'DELETE',
+        headers: { access_token: localStorage.getItem('token') }
+      })
+        .then(data => {
+          context.commit('BACK_TO_MAIN_1', {})
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
+    // updateProductStock (context, data) {
+    //   axios({
+    //     url: `http://localhost:3000/products/${data.id}`,
+    //     method: 'PUT',
+    //     headers: { access_token:  }
+    //   })
+    // }
   },
   modules: {
   }

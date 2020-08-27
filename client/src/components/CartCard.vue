@@ -9,14 +9,19 @@
         <p class="card-text">Quantity: {{cartProduct.quantity}}</p>
       </div>
       <button type="submit" class="btn btn-primary mb-2" >Update </button>
-      <button type="submit" class="btn btn-primary mb-2" >Delete </button>
+      <button type="submit" class="btn btn-primary mb-2" @click.prevent="deleteCart">Delete </button>
 
   </div>
 </template>
 
 <script>
 export default {
-  props: ['cartProduct']
+  props: ['cartProduct'],
+  methods: {
+    deleteCart () {
+      this.$store.dispatch('deleteCart', this.cartProduct.productId)
+    }
+  }
 }
 </script>
 
