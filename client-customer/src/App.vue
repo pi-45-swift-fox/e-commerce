@@ -14,9 +14,12 @@ export default {
     Navbar,
     Footer
   },
-  created (){
+  mounted () {
     this.$store.dispatch('fetchItems')
     this.$store.dispatch('fetchBanner')
+    if(localStorage.getItem('access_token')){
+      this.$store.commit('set_login')
+    }
   }
 }
 </script>

@@ -13,16 +13,16 @@
 
 <script>
 // @ is an alias to /src
-import Banner from "@/components/Banner.vue";
+import Banner from '@/components/Banner.vue'
 // import List from '@/components/List.vue'
-import Items from "@/components/Items.vue";
+import Items from '@/components/Items.vue'
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     Banner,
     // List,
-    Items,
-  },
-};
+    Items
+  }
+}
 </script>

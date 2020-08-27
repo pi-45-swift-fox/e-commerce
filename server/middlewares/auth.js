@@ -1,5 +1,5 @@
 const { decode } = require('../helpers/jwt')
-const { User } = require('../models')
+const { User, Cart } = require('../models')
 
 class Auth {
   static async authentication(req, res, next) {
@@ -11,13 +11,13 @@ class Auth {
         const userData = decode(access_token)
         const user = await User.findOne({ where: { email: userData.email } })
         if (user) {
-          req.userData = { email: user.email, role: user.role }
+          req.userData = { email: user.email, role: user.role, id: user.id }
           next()
         } else {
           return res.status(401).json({ message: 'invalid Token' })
         }
       } catch (error) {
-        // console.log(error,'<<<<<<')
+        console.log(error, '<<<<<<')
         return res.status(500).json({ message: 'Internal Server Error' })
       }
     }
@@ -28,6 +28,28 @@ class Auth {
       next()
     } else {
       res.status(400).json({ message: 'Hanya admin yang boleh meng akses' })
+    }
+  }
+  static async authorizationUser(req, res, next) {
+    const idCart = req.params.id
+    try {
+      const check = await Cart.findOne({
+        where: {
+          id: idCart
+        }
+      })
+      if (check) {
+        if (check.UserId === req.userData.id) {
+          next()
+        } else {
+          res.status(401).json({ message: "forbidden acces" })
+        }
+      } else {
+        res.status(401).json({ message: "invalid cart" })
+      }
+    } catch (error) {
+      console.log(error, '<<<<<<')
+      return res.status(500).json({ message: 'Internal Server Error' })
     }
   }
 }

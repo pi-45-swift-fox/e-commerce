@@ -1,8 +1,8 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">Toko Kepepet</a>
+        <h1 class="navbar-brand" ><strong>Book's Store</strong></h1>
         <button
           class="navbar-toggler"
           type="button"
@@ -15,21 +15,14 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">
-                Home
-                <span class="sr-only">(current)</span>
-              </a>
+          <ul class="navbar-nav ml-auto">            
+            <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Check Carts!">
+              <button class="btn btn-info"
+                  type="button" data-target="#CartModal"
+                data-toggle="modal" v-if="$store.state.isLogin"><i class="fas fa-shopping-cart"></i></button>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-            
-            <li class="nav-item">
+
+            <li class="nav-item ">
               <div class="dropdown">
                 <button
                   class="btn btn-info"
@@ -38,17 +31,19 @@
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
-                >
+                > Account
                   <i class="far fa-user-circle fa-lg"></i>
                 </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                  <span class="dropdown-header bg-info text-light">
-                    <strong>{{status}}</strong>
+                <div class="dropdown-menu dropdown-menu-right mt-0" aria-labelledby="dropdownMenuButton">
+                  <span class="dropdown-header bg-info text-light d-flex justify-content-between">
+                   <h3> <strong>{{status}}</strong></h3>
+                    <button class="btn btn-danger " v-if="$store.state.isLogin" @click="$store.commit('set_logout')">Log Out</button>
                   </span>
+                
                   <button type="button" class="btn btn-light dropdown-item" data-target="#LoginOrRegister"
-                data-toggle="modal" @click="RegisterEvent()">Login</button>
+                data-toggle="modal" @click="RegisterEvent()" v-if="!$store.state.isLogin">Login</button>
                   <button type="button" class="btn btn-light dropdown-item" data-target="#LoginOrRegister"
-                data-toggle="modal" @click="loginEvent()">Register</button>
+                data-toggle="modal" @click="loginEvent()" v-if="!$store.state.isLogin">Register</button>
                 </div>
               </div>
             </li>
@@ -62,36 +57,42 @@
       </div>-->
     </nav>
     <Modal :event="event"/>
+    <ModalCart />
   </div>
 </template>
 
 <script>
-import Modal from "./Modal";
+import ModalCart from './ModalCart'
+import Modal from './Modal'
 export default {
-  name: "Navbar",
+  name: 'Navbar',
   components: {
     Modal,
+    ModalCart
   },
-  data() {
+  data () {
     return {
-      event:false
-    };
+      event: false
+    }
   },
   methods: {
-    loginEvent(){
+    loginEvent () {
       this.event = false
     },
-    RegisterEvent(){
+    RegisterEvent () {
       this.event = true
     }
   },
-  computed:{
-    status(){
+  computed: {
+    status () {
       return this.$store.state.user ? this.$store.state.user : 'Selamat Datang'
     }
   }
-};
+}
 </script>
 
 <style>
+.dropdown:hover>.dropdown-menu {
+      display: block;
+    }
 </style>

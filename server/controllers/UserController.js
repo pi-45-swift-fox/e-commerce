@@ -3,7 +3,7 @@ const { compare } = require('../helpers/bcrypt')
 const { encode } = require('../helpers/jwt')
 class UserController {
   static async login(req, res) {
-    // console.log(req.body, '<<<<<<<<')
+    //  console.log(req.body, '<<<<<<<<')
     const data = {
       email: req.body.email,
       password: req.body.password
@@ -12,7 +12,7 @@ class UserController {
       const userLogin = await User.findOne({ where: { email: data.email } })
       if (userLogin && compare(data.password, userLogin.password)) {
         const access_token = encode({ email: userLogin.email, role: userLogin.role })
-        res.status(200).json({ message: "success login", access_token })
+        res.status(200).json({ message: "success login", access_token , email:userLogin.email })
       } else {
         res.status(400).json({ message: "email or password incorrect" })
       }
@@ -22,6 +22,7 @@ class UserController {
     }
   }
   static async register(req, res) {
+    // console.log(req.body,'<<<<<<<<<<<<<<<<')
     const data = {
       email: req.body.email,
       password: req.body.password,

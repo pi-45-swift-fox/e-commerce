@@ -11,7 +11,7 @@
       <div class="modal-body">
        <FormLogin v-if="event"/>
        <FormRegister v-if="!event"/>
-      </div>      
+      </div>
     </div>
   </div>
 </div>
@@ -21,17 +21,17 @@
 import FormLogin from './FormLogin'
 import FormRegister from './FormRegister'
 export default {
-name:'Modal',
-props:['event'],
-components:{
-  FormLogin,
-  FormRegister
-},
-computed:{
-  head(){
-    return this.event ?'Login':'Register'
+  name: 'Modal',
+  props: ['event'],
+  components: {
+    FormLogin,
+    FormRegister
+  },
+  computed: {
+    head () {
+      return this.event ? 'Login' : 'Register'
+    }
   }
-}
 }
 </script>
 
