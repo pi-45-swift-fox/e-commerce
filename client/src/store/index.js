@@ -58,6 +58,12 @@ export default new Vuex.Store({
           Swal.fire('invalid email or password')
         })
     },
+    register ({ commit }, payload) {
+      axios.post('/register', { email: payload.regEmail, password: payload.regPassword })
+        .then(() => {
+        })
+        .catch(console.log)
+    },
     logout ({ commit }) {
       commit('SET_LOGGED', false)
       localStorage.removeItem('access_token')
