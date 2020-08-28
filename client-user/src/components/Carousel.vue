@@ -4,10 +4,10 @@
     <b-carousel
       id="carousel-1"
       v-model="slide"
-      :interval="1000"
+      :interval="5000"
       img-width="100%"
-      img-height="60%"
-    img-center
+      img-height="40%"
+      img-bottom
       controls
       indicators
       background="#ababab"
@@ -16,10 +16,10 @@
       @sliding-end="onSlideEnd"
     >
       <!-- Text slides with image -->
-      <b-carousel-slide class="img-slide" style="height:300px"
+      <b-carousel-slide class="img-slide" style="height:30vh"
       v-for="product in this.products" :key="product.id" :product="product"
         :caption="product.name"
-        :text="product.price"
+        :text="product.price.toString()"
         :img-src="product.image_url"
       ></b-carousel-slide>
     </b-carousel>
@@ -51,9 +51,11 @@ export default {
 }
 </script>
 <style scoped>
-.img-slide{
-  height: 59vh;
-  object-fit: scale-down;
+#carousel-1{
+  margin: 0;
+  position: relative
 }
-
+#carousel-1 .img{
+  object-fit: contain !important ;
+}
 </style>
