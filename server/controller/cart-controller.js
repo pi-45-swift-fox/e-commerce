@@ -61,8 +61,10 @@ class Controller {
                 status:req.body.status
             }
             const updatedData = await Cart.update(obj,{where:{userId:req.userLogin.id,productId:req.params.id}})
+            const findProduct = await product.findOne({where:{id:req.params.id}})
+
             const result =  await product.decrement({
-                stock: Number(req.body.quantity)
+                stock: Number(req.body.addedQuantity)
             }, {where : {id: req.params.id}})
             res.status(200).json({message:'success to update data'})
         }catch(err){

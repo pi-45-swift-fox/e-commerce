@@ -8,7 +8,7 @@
         <p class="card-text">{{cartProduct.product.price}}</p>
         <p class="card-text">Quantity: {{cartProduct.quantity}}</p>
       </div>
-      <button type="submit" class="btn btn-primary mb-2" >Update </button>
+      <button type="submit" class="btn btn-primary mb-2" @click.prevent="updateCart">Update </button>
       <button type="submit" class="btn btn-primary mb-2" @click.prevent="deleteCart">Delete </button>
 
   </div>
@@ -20,6 +20,9 @@ export default {
   methods: {
     deleteCart () {
       this.$store.dispatch('deleteCart', this.cartProduct.productId)
+    },
+    updateCart () {
+      this.$store.dispatch('showUpdateCart', this.cartProduct.productId)
     }
   }
 }

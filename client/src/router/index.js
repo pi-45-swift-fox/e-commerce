@@ -5,6 +5,7 @@ import Login from '../views/LoginForm.vue'
 import Main from '../views/Main'
 import Cart from '../views/MyCart.vue'
 import Register from '../views/RegisterForm.vue'
+import UpdateForm from '../views/CartCardUpdateForm.vue'
 
 Vue.use(VueRouter)
 
@@ -41,6 +42,11 @@ const routes = [
     path: '/myCart',
     name: 'Cart',
     component: Cart
+  },
+  {
+    path: '/updateForm',
+    name: 'UpdateForm',
+    component: UpdateForm
   }
 ]
 

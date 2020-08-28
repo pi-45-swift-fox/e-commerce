@@ -9,7 +9,9 @@ export default new Vuex.Store({
   state: {
     access_token: '',
     available_products: [],
-    customer_cart: []
+    customer_cart: [],
+    updatedCart: [],
+    updatedCartProduct: []
   },
   mutations: {
     LOGIN (state, info) {
@@ -29,6 +31,15 @@ export default new Vuex.Store({
     },
     BACK_TO_MAIN_1 (state, info) {
       router.go(router.currentRoute)
+    },
+    SET_UPDATED_PRODUCT (state, id) {
+      const index = this.state.customer_cart.findIndex(x => x.productId === id)
+      const index1 = this.state.available_products.findIndex(x => x.id === id)
+      state.updatedCart = state.customer_cart[index]
+      state.updatedCartProduct = state.available_products[index1]
+    },
+    BACK_TO_MAIN (state, info) {
+      router.push('/main')
     }
   },
   actions: {
@@ -138,7 +149,8 @@ export default new Vuex.Store({
           method: 'PUT',
           headers: { access_token: localStorage.getItem('token') },
           data: {
-            quantity: newQuantity
+            quantity: newQuantity,
+            addedQuantity: info.quantity
           }
         })
           .then(data => {
@@ -161,14 +173,30 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+    },
+    showUpdateCart (context, id) {
+      context.commit('SET_UPDATED_PRODUCT', id)
+      router.push('/updateForm')
+    },
+    updateCart (context, data) {
+      axios({
+        url: `http://localhost:3000/products/${data.productId}`,
+        method: 'PUT',
+        headers: { access_token: localStorage.getItem('token') },
+        data: {
+          quantity: data.quantity,
+          status: data.status,
+          addedQuantity: data.quantity - this.state.updatedCart.quantity
+
+        }
+      })
+        .then(data => {
+          context.commit('BACK_TO_MAIN', {})
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
-    // updateProductStock (context, data) {
-    //   axios({
-    //     url: `http://localhost:3000/products/${data.id}`,
-    //     method: 'PUT',
-    //     headers: { access_token:  }
-    //   })
-    // }
   },
   modules: {
   }
