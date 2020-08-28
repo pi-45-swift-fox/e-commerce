@@ -13,7 +13,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/checkout',
+    path: '/cart',
     name: 'Cart',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -38,14 +38,12 @@ const router = new VueRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   if (to.name !== 'Login' && !localStorage.token) {
-//     next({ name: 'Login' })
-//   } else if (to.name === 'Login' && localStorage.token) {
-//     next({ name: 'Home' })
-//   } else {
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  if (to.name === 'Cart' && !localStorage.token) {
+    next({ name: 'Home' })
+  } else {
+    next()
+  }
+})
 
 export default router

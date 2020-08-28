@@ -2,7 +2,7 @@
   <div class="container">
     <Navbar/>
     <div class="my-5">
-      <table class="table table-hover cardData">
+      <table class="table cardData">
         <thead>
           <tr>
             <!-- <th scope="col">#</th> -->

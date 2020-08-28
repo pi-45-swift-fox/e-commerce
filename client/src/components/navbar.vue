@@ -2,7 +2,7 @@
   <div class="navbar sticky-top mt-3 bg-darkGrey">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/checkout">Checkout</router-link>
+      <router-link to="/cart">Checkout</router-link>
     </div>
     <b-button v-if="isLogin" class=" noOpacity" variant="danger" @click="logout">Logout</b-button>
     <b-button v-else class=" noOpacity" variant="danger" @click="login">Login</b-button>
@@ -31,7 +31,7 @@ export default {
           if (willDelete) {
             localStorage.clear()
             this.$store.dispatch('fetchData')
-            // this.$router.push({ name: 'Home' })
+            this.$router.push({ name: 'Home' })
           }
         })
     },
@@ -39,7 +39,7 @@ export default {
       this.$router.push({ name: 'Login' })
     }
   },
-  created () {
+  mounted () {
     if (localStorage.token) {
       this.isLogin = true
     } else {
