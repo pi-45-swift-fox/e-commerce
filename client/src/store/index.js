@@ -119,7 +119,7 @@ export default new Vuex.Store({
           }
         })
           .then(data => {
-            console.log('ini>>>>>>>', this.state.customer_cart[index].quantity)
+            console.log('ini>>>>>>>', this.state.customer_cart[index])
             context.commit('BACK_TO_MAIN_1', {})
           })
           .catch(err => {
@@ -131,6 +131,7 @@ export default new Vuex.Store({
           newQuantity = Number(this.state.customer_cart[index].product.stock)
         } else {
           newQuantity = Number(info.quantity) + Number(this.state.customer_cart[index].quantity)
+          console.log('quantity baru>>>', newQuantity)
         }
         axios({
           url: `http://localhost:3000/cart/${info.id}`,
@@ -142,7 +143,6 @@ export default new Vuex.Store({
         })
           .then(data => {
             context.commit('BACK_TO_MAIN_1', {})
-            console.log('ini>>>>>>>', this.state.customer_cart[index].quantity)
           })
           .catch(err => {
             console.log(err)

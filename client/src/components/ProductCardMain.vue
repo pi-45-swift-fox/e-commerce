@@ -10,7 +10,7 @@
       </div>
       <form action="">
           <label for="addQuantity">Quantity(s):</label>
-          <input type="number" name="" id="addQuantity" :max="product.stock" min="1" v-model="quantity">
+          <input type="number" name="" id="addQuantity" :max="product.stock" min="1" v-model="quantity" required>
         <button type="submit" class="btn btn-primary mb-2" @click.prevent="addProductToCart">Add To Cart </button>
       </form>
   </div>

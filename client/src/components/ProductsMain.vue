@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import ProductCard from './ProductCardMain'
+import ProductCard from './ProductCardMain.vue'
 export default {
   components: {
     ProductCard
