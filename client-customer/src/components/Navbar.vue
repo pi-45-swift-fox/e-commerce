@@ -57,7 +57,7 @@
       </div>-->
     </nav>
     <Modal :event="event"/>
-    <ModalCart />
+    <ModalCart v-if="$store.state.isLogin"/>
   </div>
 </template>
 

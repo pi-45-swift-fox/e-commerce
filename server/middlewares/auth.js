@@ -42,7 +42,7 @@ class Auth {
         if (check.UserId === req.userData.id) {
           next()
         } else {
-          res.status(401).json({ message: "forbidden acces" })
+          res.status(401).json({ message: "forbidden access" })
         }
       } else {
         res.status(401).json({ message: "invalid cart" })

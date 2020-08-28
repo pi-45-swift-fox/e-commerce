@@ -1,11 +1,12 @@
-const { Cart } = require('../models')
+const { Cart,Product } = require('../models')
 class CartController {
   static async createCart(req, res) {
-    const { ProductId,  quantity } = req.body
+    const { ProductId,  quantitiy } = req.body
     const status = 'belum di beli'
     const UserId = req.userData.id
+    console.log(quantitiy,'<<<<<<<')
     try {
-      const createData = await Cart.create({ ProductId, UserId, quantity, status })
+      const createData = await Cart.create({ ProductId, UserId, quantitiy, status })
       res.status(201).json({ message: 'berhasil membuat cart' })
     } catch (error) {
       console.log(error)
@@ -24,13 +25,14 @@ class CartController {
     }
   }
   static async showCart(req, res) {
-    const UserId = req.body.UserId
+    const UserId = req.userData.id
     try {
-      const data = await findAll({
+      const data = await Cart.findAll({include: Product,
         where: {
           UserId
         }
       })
+      console.log(data)
       res.status(200).json(data)
     } catch (error) {
       console.log(error)

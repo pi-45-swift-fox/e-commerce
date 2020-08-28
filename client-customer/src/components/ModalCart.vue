@@ -34,7 +34,7 @@
     </div>
   </li>
   <!-- <ModalCartItem /> -->
-          <ModalCartItem v-for="{cart,i} in $store.state.carts" :key="i" :cart="cart" />
+          <ModalCartItem v-for="(cart,i) in $store.state.carts" :key="i" :cart="cart" />
           </ul>
         </div>
         <div class="modal-footer">
@@ -52,7 +52,7 @@ export default {
   name: "ModalCart",
   components: {
     ModalCartItem,
-  },
+  },  
 };
 </script>
 

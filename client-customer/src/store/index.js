@@ -108,6 +108,7 @@ export default new Vuex.Store({
         .catch((error) => { console.error('Error:', error); })
     },
     deleteCart({commit,dispatch},data){
+      console.log(data)
       const access_token = localStorage.getItem('access_token')
       fetch(`${baseUrl}/carts/${data}`,{
         method:"DELETE",

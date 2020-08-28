@@ -19,6 +19,7 @@ export default {
     this.$store.dispatch('fetchBanner')
     if(localStorage.getItem('access_token')){
       this.$store.commit('set_login')
+      this.$store.dispatch('fetchCart')
     }
   }
 }
