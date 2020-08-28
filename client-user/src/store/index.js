@@ -10,7 +10,8 @@ export default new Vuex.Store({
   state: {
     products: [],
     isLogin: false,
-    carts: []
+    carts: [],
+    carousel: true
   },
   mutations: {
     NEW_PRODUCTS (state, payload) {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     },
     NEW_LOGIN (state, payload) {
       state.isLogin = payload
+    },
+    NEW_CAROUSEL (state, payload) {
+      state.carousel = payload
     }
   },
   actions: {

@@ -1,4 +1,4 @@
-const {Product} = require('../models')
+const {Product, Cart} = require('../models')
 
 class UserController {
 
@@ -35,7 +35,6 @@ class UserController {
     static async update(req, res, next) {
         
         try{
-
             const {name, image_url, price, stock} = req.body
             const currentData = await Product.findByPk(req.params.id)
             if(!currentData){
@@ -52,13 +51,12 @@ class UserController {
     static async delete(req, res, next) {
 
         try{
-
+            const cart = await Cart.destroy({where:{ProductId:req.params.id}}) 
             const data = await Product.destroy({where:{id:req.params.id}})
             if(!data){
                 return next({errorCode : "INVALID_DATA"})
             }
             res.status(200).json({Message: "Data has been destroyed"})
-
         } catch(err){
 
             next(err)

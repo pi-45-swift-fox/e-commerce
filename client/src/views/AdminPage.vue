@@ -25,7 +25,7 @@
       <!-- modal -->
     </div>
     <div class="d-sm-flex justify-content-around flex-wrap mx-5 my-5">
-      <Cards v-for="product in this.$store.state.data" :key='product.id' :product='product' />
+      <Cards v-for="product in $store.state.products" :key="product.id" :product="product" />
     </div>
     </div>
 
@@ -33,7 +33,7 @@
 
 <script>
 import Cards from '../components/Cards'
-import { mapMutations, mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import Modal from '../components/Modal'
 export default {
   name: 'Home',
@@ -50,23 +50,22 @@ export default {
     Modal
   },
   methods: {
-    ...mapMutations([
-    ]),
     ...mapActions([
-      'addProducts'
+      'addProducts',
+      'fetchProducts'
     ]),
     logout () {
       localStorage.clear()
       this.$router.push('/')
-    },
-    addProduct () {
-      this.addProducts({ name: this.name, image_url: this.image_url, price: this.price, stock: this.stock })
     }
   },
-
   created () {
-    this.$store.dispatch('fetchProducts')
-  }
+    this.fetchProducts()
+  },
+  computed: mapState([
+    'isLogin',
+    'products'
+  ])
 }
 
 </script>

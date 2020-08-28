@@ -50,7 +50,7 @@ class Controller{
             const {quantity} = req.body
             const updateProduct = await Cart.update({quantity},{where:{id:req.params.id}, returning:true})
             if(updateProduct){
-                res.status(200).json(updateProduct[1])
+                res.status(200).json({message: "Succesfully update cart"})
             }
         }catch(err){
             next(err)

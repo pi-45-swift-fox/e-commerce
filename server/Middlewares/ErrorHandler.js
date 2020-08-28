@@ -9,7 +9,16 @@ function errorHandler(err, req, res, next){
         array.push(message)
         statusCode = 401
     }
-    
+    if (err.name == 'SequelizeUniqueConstraintError') {
+        statusCode = 400
+        const errors = []
+        err.errors.forEach(el => {
+            errors.push(el.message)
+        });
+
+        message = errors
+        array.push(message)
+    }
     if (err.name == 'SequelizeValidationError') {
         statusCode = 400
         const errors = []
