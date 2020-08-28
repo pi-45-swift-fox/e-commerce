@@ -50,7 +50,7 @@ describe("POST /register case berhasil", function(){
       .then(response=>{
           const {status, body} = response
           expect(status).toBe(400)
-          expect(body).toHaveProperty('Message', expect.any(Array))
+          expect(body).toHaveProperty('message', expect.any(Array))
           done()
       })
     })
@@ -78,7 +78,7 @@ describe("POST /login case Berhasil", function(){
     .then(response=>{
         const {status, body} = response
         expect(status).toBe(401)
-        expect(body).toHaveProperty('Message', expect.any(Array))
+        expect(body).toHaveProperty('message', expect.any(Array))
         done()
     })
   })

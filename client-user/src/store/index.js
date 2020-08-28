@@ -39,7 +39,7 @@ export default new Vuex.Store({
         swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: `${response.data.Message}`
+          text: `${response.data.message}`
         })
       })
     },
@@ -57,7 +57,7 @@ export default new Vuex.Store({
         swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: `${response.data.Message}`
+          text: `${response.data.message}`
         })
       })
     },
@@ -76,7 +76,7 @@ export default new Vuex.Store({
         swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: `${response.data.Message}`
+          text: `${response.data.message}`
         })
       })
     },
@@ -111,7 +111,7 @@ export default new Vuex.Store({
           swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: `${response.data.Message}`
+            text: `${response.data.message}`
           })
         })
       }
@@ -140,7 +140,7 @@ export default new Vuex.Store({
         swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: `${response.data.Message}`
+          text: `${response.data.message}`
         })
       })
     },
@@ -173,7 +173,7 @@ export default new Vuex.Store({
             swal.fire({
               icon: 'error',
               title: 'Oops...',
-              text: `${response.data.Message}`
+              text: `${response.data.message}`
             })
           })
         }

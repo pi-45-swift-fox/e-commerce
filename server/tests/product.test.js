@@ -52,7 +52,7 @@ describe("POST /Products case berhasil menambahkan product", function() {
             .then(response => {
                 const { status, body } = response
                 expect(status).toBe(400)
-                expect(body).toHaveProperty('Message', expect.any(Array))
+                expect(body).toHaveProperty('message', expect.any(Array))
                 done()
             })
     })
@@ -82,7 +82,7 @@ describe("GET /Products case berhasil menampilkan product", function() {
             .then(response => {
                 const { status, body } = response
                 expect(status).toBe(401)
-                expect(body).toHaveProperty('Message', expect.any(Array))
+                expect(body).toHaveProperty('message', expect.any(Array))
                 done()
             })
     })
@@ -115,7 +115,7 @@ describe("PUT /Products/:id case berhasil update product", function() {
             .then(response => {
                 const { status, body } = response
                 expect(status).toBe(401)
-                expect(body).toHaveProperty('Message', expect.any(Array))
+                expect(body).toHaveProperty('message', expect.any(Array))
                 done()
             })
     })
@@ -133,7 +133,7 @@ describe("DELETE /Products/:id case berhasil Delete product", function() {
                 const { status, body } = response
                 // console.log(status, ',==================== ini status')
                 expect(status).toBe(200)
-                expect(body).toHaveProperty("Message", "Data has been destroyed")
+                expect(body).toHaveProperty("message", "Data has been destroyed")
                 done()
             })
     })
@@ -146,7 +146,7 @@ describe("DELETE /Products/:id case berhasil Delete product", function() {
             .then(response => {
                 const { status, body } = response
                 expect(status).toBe(401)
-                expect(body).toHaveProperty('Message', expect.any(Array))
+                expect(body).toHaveProperty('message', expect.any(Array))
                 done()
             })
     })

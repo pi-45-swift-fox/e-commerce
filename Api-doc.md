@@ -1,3 +1,19 @@
+### Link Ecommerce 
+```
+ecommerce-2da50.firebaseapp.com
+```
+
+### Link Ecommerce-CMS
+```
+ecommerce-cms-df1e5.firebaseapp.com
+```
+
+### DOTENV
+```
+SECRET=HANYA SAYA DAN TUHAN YANG TAHU
+PORT=3000
+```
+
 # E-Commerce-cms
 List of available endpoints:
 - `POST /login`
