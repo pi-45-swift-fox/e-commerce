@@ -179,14 +179,17 @@ export default new Vuex.Store({
       router.push('/updateForm')
     },
     updateCart (context, data) {
+      console.log(data)
+      console.log(data.quantity)
+      console.log(this.state.updatedCart.quantity)
       axios({
-        url: `http://localhost:3000/products/${data.productId}`,
+        url: `http://localhost:3000/cart/${data.productId}`,
         method: 'PUT',
         headers: { access_token: localStorage.getItem('token') },
         data: {
           quantity: data.quantity,
           status: data.status,
-          addedQuantity: data.quantity - this.state.updatedCart.quantity
+          addedQuantity: Number(data.quantity) - this.state.updatedCart.quantity
 
         }
       })
