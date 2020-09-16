@@ -1,6 +1,9 @@
 # e-commerce
 Membuat platform untuk e-commerce
 
+HEROKU = https://e-commerce-cms-gacor.herokuapp.com/
+FIREBASE = https://e-commerce-a1e07.web.app/
+
 ## RESTful endpoints
 List of available endpoint:
 
