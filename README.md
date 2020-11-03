@@ -5,7 +5,8 @@ My e-commerce App is an application to sell product with E-commerce Stores. This
 * RESTful endpoint for Add Cart and Checkout Operation
 * JSON formatted response
 * Technology includes: 
-    - Express Js (Node JS Framework), 
+    - Express Js (Node JS Framework),
+    - Vue Js
     - Object-relation Mapping: Sequelize, 
     - Database: Postgres, 
     - Token Signing/Verification: Json Web Token, 
