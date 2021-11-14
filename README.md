@@ -1,5 +1,10 @@
 # e-commerce
-Membuat platform untuk e-commerce
+Membuat platform untuk e-commerce. Untuk mengakses API, silahkan gunakan credential berikut ini;
+email: admin@mail.com
+password: 123456
+
+API pengiriman data dibungkus dalam datatype JSON
+Untuk testing silahkan jalankan "npm run test" tersedia di dalam masing respektif environment.
 
 # Guide
 ## Endpoints V1 (CMS)

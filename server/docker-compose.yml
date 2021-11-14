@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  dev:
+    build: .
+    container_name: ecommerce_dev
+    ports:
+      - 8000:3000
+    env_file: .env
+    command: npm run setup-dev
+    volumes:
+      - .:/user/src/app
+    depends_on:
+      - db
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres

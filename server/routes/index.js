@@ -7,6 +7,6 @@ router.post('/register', UserController.register);
 router.post('/login', UserController.login);
 router.use('/products', ProductRoute);
 router.use('/cart', CartRoute);
-router.get('/say-hi', (req, res) => { res.status(200).json({ hi: 'hello' }) });
+router.get('/server-status', (req, res) => { res.status(200).json({ msg: 'hello' }) });
 
 module.exports = router;
